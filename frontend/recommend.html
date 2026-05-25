@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Recommendations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="navbar">
+
+        <a href="index.html">Home</a>
+    
+        <a href="recommend.html">
+            Recommendations
+        </a>
+    
+    </div>
+    <h1>Premarital Test Recommendation</h1>
+
+    <label>Family History?</label>
+
+    <select id="family_history">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+    </select>
+
+    <br><br>
+
+    <label>Cousin Marriage?</label>
+
+    <select id="cousin_marriage">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+    </select>
+
+    <br><br>
+
+    <label>Sexually Active?</label>
+
+    <select id="sexually_active">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+    </select>
+
+    <br><br>
+
+    <button onclick="getRecommendations()">
+        Get Recommendations
+    </button>
+
+    <div id="result"></div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
