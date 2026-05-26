@@ -2,47 +2,218 @@
 <html>
 
 <head>
-    <title>Dashboard</title>
+
+    <title>Dashboard - VowSecure</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- FONT AWESOME -->
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
 </head>
 
-<body>
+<body onload="loadDashboard()">
 
-    <div class="navbar">
+    <!-- NAVBAR -->
 
-        <a href="index.html">Home</a>
+    <nav class="navbar">
 
-        <a href="recommend.html">
-            Recommendations
-        </a>
+        <div class="nav-left">
 
-        <a href="signup.html">
-            Signup
-        </a>
+            <div class="menu-icon">
 
-        <a href="login.html">
-            Login
-        </a>
+                <i class="fa-solid fa-bars"></i>
+
+            </div>
+
+            <h2 class="logo">
+                VowSecure
+            </h2>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="labs.html">
+                Labs
+            </a>
+
+            <a href="recommend.html">
+                Recommendations
+            </a>
+
+            <a href="reports.html">
+                Reports
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- HERO -->
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1 id="welcomeUser">
+
+                Welcome
+
+            </h1>
+
+            <p>
+
+                Your healthcare dashboard
+                and personalized wellness insights.
+
+            </p>
+
+        </div>
 
     </div>
 
-    <h1>Welcome to VowSecure</h1>
 
-    <div class="card">
-        <h2>Search Labs</h2>
 
-        <a href="index.html">
-            <button>Go</button>
-        </a>
+    <!-- DASHBOARD GRID -->
+
+    <div class="recommend-grid">
+
+        <!-- TOTAL REPORTS -->
+
+        <div class="health-card">
+
+            <div class="health-icon">
+
+                <i class="fa-solid fa-file-medical"></i>
+
+            </div>
+
+            <h2 id="totalReports">
+                0
+            </h2>
+
+            <p class="speciality">
+
+                Saved Reports
+
+            </p>
+
+        </div>
+
+
+
+        <!-- LATEST RISK -->
+
+        <div class="health-card">
+
+            <div class="health-icon">
+
+                <i class="fa-solid fa-heart-pulse"></i>
+
+            </div>
+
+            <h2 id="latestRisk">
+
+                0
+
+            </h2>
+
+            <p class="speciality">
+
+                Latest Risk Score
+
+            </p>
+
+        </div>
+
+
+
+        <!-- LABS -->
+
+        <div class="health-card">
+
+            <div class="health-icon">
+
+                <i class="fa-solid fa-flask"></i>
+
+            </div>
+
+            <h2>
+                Nearby Labs
+            </h2>
+
+            <p class="speciality">
+
+                Find healthcare laboratories
+                near your location.
+
+            </p>
+
+            <button
+            class="test-btn"
+
+            onclick="
+            window.location.href='labs.html'
+            ">
+
+                Explore Labs
+
+            </button>
+
+        </div>
+
+
+
+        <!-- RECOMMENDATIONS -->
+
+        <div class="health-card">
+
+            <div class="health-icon">
+
+                <i class="fa-solid fa-notes-medical"></i>
+
+            </div>
+
+            <h2>
+                Recommendations
+            </h2>
+
+            <p class="speciality">
+
+                Get personalized
+                healthcare recommendations.
+
+            </p>
+
+            <button
+            class="test-btn"
+
+            onclick="
+            window.location.href='recommend.html'
+            ">
+
+                Open Recommendations
+
+            </button>
+
+        </div>
+
     </div>
 
-    <div class="card">
-        <h2>Get Recommendations</h2>
 
-        <a href="recommend.html">
-            <button>Go</button>
-        </a>
-    </div>
+
+    <script src="script.js"></script>
 
 </body>
 

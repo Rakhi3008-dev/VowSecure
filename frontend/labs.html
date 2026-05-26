@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Lab Finder</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- FONT AWESOME -->
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- LEAFLET -->
+
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+    />
+
+</head>
+
+<body>
+
+   <!-- NAVBAR -->
+
+   <nav class="navbar">
+
+    <div class="nav-left">
+
+        <div class="menu-icon"
+        onclick="toggleMenu()">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </div>
+
+        <h2 class="logo">
+            VowSecure
+        </h2>
+
+    </div>
+
+    <div class="nav-links" id="navLinks">
+
+        <a href="index.html">Home</a>
+
+        <a href="labs.html">
+            Labs
+        </a>
+
+        <a href="recommend.html">
+            Recommendations
+        </a>
+
+        <a href="reports.html">
+            Reports
+        </a>
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+
+    <!-- HERO -->
+
+<div class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Find Diagnostic Labs
+        </h1>
+
+        <p>
+
+            Search healthcare laboratories,
+            nearby diagnostic centers,
+            and trusted medical services
+            across India.
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- LAB SEARCH PAGE -->
+
+<div class="recommend-page">
+
+    <div class="recommend-box">
+
+        <h1>
+            Find Healthcare Services
+        </h1>
+
+        <p class="recommend-subtitle">
+
+            Discover diagnostic labs,
+            healthcare centers, and
+            nearby doctors around you.
+
+        </p>
+
+
+
+        <!-- CITY INPUT -->
+
+        <div class="form-group">
+
+            <label>
+                Search By City
+            </label>
+
+            <input
+                type="text"
+                id="city"
+                placeholder="Enter city"
+            >
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <button onclick="searchLabs()">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            Search Labs
+
+        </button>
+
+
+
+        <button onclick="findNearbyLabs()">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            Find Nearby Labs
+
+        </button>
+
+
+
+        <button onclick="findNearbyDoctors()">
+
+            <i class="fa-solid fa-user-doctor"></i>
+
+            Find Nearby Doctors
+
+        </button>
+
+    </div>
+
+</div>
+    <!-- RESULTS -->
+
+    <div id="result"></div>
+
+
+
+    <!-- MAP -->
+
+    <div id="map"></div>
+
+
+
+    <!-- LEAFLET -->
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

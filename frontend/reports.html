@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>My Reports</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+</head>
+
+<body onload="loadReports()">
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="nav-left">
+
+            <div class="menu-icon">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </div>
+
+            <h2 class="logo">
+                VowSecure
+            </h2>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="labs.html">
+                Labs
+            </a>
+
+            <a href="recommend.html">
+                Recommendations
+            </a>
+
+            <a href="reports.html">
+                Reports
+            </a>
+<a href="login.html">
+                Login
+</a>
+        </div>
+
+    </nav>
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            My Health Reports
+        </h1>
+
+        <p>
+
+            View your saved healthcare
+            recommendations and
+            risk analysis history.
+
+        </p>
+
+        <!-- BUTTON -->
+
+        <button
+        class="test-btn"
+        onclick="loadReports()">
+
+            Load My Reports
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- REPORTS -->
+<div
+id="reports"
+class="recommend-grid">
+
+</div>
+    
+    <div
+    id="reports"
+    class="recommend-grid">
+    
+    </div>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

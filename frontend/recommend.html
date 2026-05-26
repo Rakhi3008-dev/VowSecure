@@ -2,54 +2,181 @@
 <html>
 
 <head>
+
     <title>Recommendations</title>
+
     <link rel="stylesheet" href="style.css">
+
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
 </head>
 
 <body>
-    <div class="navbar">
 
-        <a href="index.html">Home</a>
-    
-        <a href="recommend.html">
-            Recommendations
-        </a>
-    
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="nav-left">
+
+            <div class="menu-icon"
+            onclick="toggleMenu()">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </div>
+
+            <h2 class="logo">
+                VowSecure
+            </h2>
+
+        </div>
+
+        <div class="nav-links" id="navLinks">
+
+            <a href="index.html">Home</a>
+
+            <a href="labs.html">
+                Labs
+            </a>
+
+            <a href="recommend.html">
+                Recommendations
+            </a>
+
+            <a href="reports.html">
+                Reports
+            </a>
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- RECOMMEND SECTION -->
+
+    <div class="recommend-page">
+
+        <div class="recommend-box">
+
+            <h1>
+                Premarital Test Recommendation
+            </h1>
+
+            <p class="recommend-subtitle">
+
+                Get AI-assisted healthcare
+                recommendations based on
+                your medical and family history.
+
+            </p>
+
+
+
+            <!-- FAMILY -->
+
+            <div class="form-group">
+
+                <label>
+                    Family History?
+                </label>
+
+                <select id="family_history">
+
+                    <option value="no">
+                        No
+                    </option>
+
+                    <option value="yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- COUSIN -->
+
+            <div class="form-group">
+
+                <label>
+                    Cousin Marriage?
+                </label>
+
+                <select id="cousin_marriage">
+
+                    <option value="no">
+                        No
+                    </option>
+
+                    <option value="yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- SEXUAL -->
+
+            <div class="form-group">
+
+                <label>
+                    Sexually Active?
+                </label>
+
+                <select id="sexually_active">
+
+                    <option value="no">
+                        No
+                    </option>
+
+                    <option value="yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- BUTTON -->
+
+            <button onclick="getRecommendations()">
+
+                <i class="fa-solid fa-heart-pulse"></i>
+
+                Get Recommendations
+
+            </button>
+
+        </div>
+
     </div>
-    <h1>Premarital Test Recommendation</h1>
 
-    <label>Family History?</label>
 
-    <select id="family_history">
-        <option value="no">No</option>
-        <option value="yes">Yes</option>
-    </select>
 
-    <br><br>
-
-    <label>Cousin Marriage?</label>
-
-    <select id="cousin_marriage">
-        <option value="no">No</option>
-        <option value="yes">Yes</option>
-    </select>
-
-    <br><br>
-
-    <label>Sexually Active?</label>
-
-    <select id="sexually_active">
-        <option value="no">No</option>
-        <option value="yes">Yes</option>
-    </select>
-
-    <br><br>
-
-    <button onclick="getRecommendations()">
-        Get Recommendations
-    </button>
+    <!-- RESULTS -->
 
     <div id="result"></div>
+
+
+
+    <!-- SCRIPT -->
 
     <script src="script.js"></script>
 

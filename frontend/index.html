@@ -1,32 +1,1121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+    >
+
     <title>VowSecure</title>
-    <link rel="stylesheet" href="style.css">
+
+    <!-- FONT AWESOME -->
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- LEAFLET -->
+
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+    >
+
+    <!-- CSS -->
+
+    <link
+    rel="stylesheet"
+    href="style.css"
+    >
+
 </head>
+
 <body>
-    <div class="navbar">
 
-        <a href="index.html">Home</a>
-    
-        <a href="recommend.html">
-            Recommendations
-        </a>
-    
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            VowSecure
+
+        </div>
+
+
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="labs.html">Labs</a>
+
+            <a href="recommend.html">
+
+                Recommendations
+
+            </a>
+
+            <a href="reports.html">
+
+                Reports
+
+            </a>
+
+            <a href="login.html">
+
+                Login
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- HERO -->
+
+    <section class="modern-hero">
+
+        <!-- LEFT -->
+
+        <div class="hero-left">
+
+            <h1>
+
+                Your <span>Health</span>,
+                <br>
+                Our Priority
+
+            </h1>
+
+
+
+            <p>
+
+                Find trusted diagnostic labs,
+                healthcare services, and get
+                personalized recommendations
+                for a healthier tomorrow.
+
+            </p>
+
+
+
+            <!-- SEARCH -->
+
+            <div class="hero-search-box">
+
+                <input
+                type="text"
+                id="city"
+                placeholder="Enter your city"
+                >
+
+
+
+                <button onclick="searchLabs()">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    Search Labs
+
+                </button>
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="hero-buttons">
+
+                <button onclick="findNearbyLabs()">
+
+                    <i class="fa-solid fa-flask"></i>
+
+                    Nearby Labs
+
+                </button>
+
+
+
+                <button onclick="findNearbyDoctors()">
+
+                    <i class="fa-solid fa-user-doctor"></i>
+
+                    Nearby Doctors
+
+                </button>
+
+
+
+                <button
+                onclick="
+                window.location.href='recommend.html'
+                ">
+
+                    <i class="fa-solid fa-heart"></i>
+
+                    Recommendations
+
+                </button>
+
+            </div>
+
+
+
+            <!-- FEATURES -->
+
+            <div class="hero-features">
+
+                <div>
+
+                    <i class="fa-solid fa-shield-heart"></i>
+
+                    Trusted & Verified
+
+                </div>
+
+
+
+                <div>
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    Quick & Easy
+
+                </div>
+
+
+
+                <div>
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    Secure & Private
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RIGHT -->
+
+        <div class="hero-right">
+
+            <div class="health-dashboard">
+
+                <!-- TOP -->
+
+                <div class="dashboard-card top-card">
+
+                    <div class="card-icon blue">
+
+                        <i class="fa-solid fa-heart-pulse"></i>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <h3>Heart Rate</h3>
+
+                        <p>72 BPM • Healthy</p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MAIN -->
+
+                <div class="dashboard-main">
+
+                    <!-- LEFT -->
+
+                    <div class="dashboard-left">
+
+                        <div class="mini-card">
+
+                            <h4>Risk Score</h4>
+
+                            <span class="green-text">
+
+                                Low Risk
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="mini-card">
+
+                            <h4>Nearby Labs</h4>
+
+                            <span>
+
+                                24 Available
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- RIGHT -->
+
+                    <div class="dashboard-right">
+
+                        <div class="big-score">
+
+                            <h2>98%</h2>
+
+                            <p>Health Score</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STATS -->
+
+                <div class="dashboard-stats">
+
+                    <div class="stat-mini">
+
+                        <i class="fa-solid fa-file-medical"></i>
+
+                        <div>
+
+                            <h4>8</h4>
+
+                            <p>Reports Saved</p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="stat-mini">
+
+                        <i class="fa-solid fa-user-doctor"></i>
+
+                        <div>
+
+                            <h4>500+</h4>
+
+                            <p>Trusted Doctors</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- SERVICES -->
+
+    <section class="modern-services">
+
+        <div class="service-card">
+
+            <div class="service-icon blue">
+
+                <i class="fa-solid fa-flask"></i>
+
+            </div>
+
+            <h3>Find Diagnostic Labs</h3>
+
+            <p>
+
+                Search trusted labs near you
+                with accurate information.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="service-card">
+
+            <div class="service-icon green">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+            </div>
+
+            <h3>Find Nearby Doctors</h3>
+
+            <p>
+
+                Connect with qualified healthcare
+                specialists around you.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="service-card">
+
+            <div class="service-icon purple">
+
+                <i class="fa-solid fa-file-medical"></i>
+
+            </div>
+
+            <h3>Personalized Recommendations</h3>
+
+            <p>
+
+                Get expert health test
+                recommendations instantly.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="service-card">
+
+            <div class="service-icon orange">
+
+                <i class="fa-solid fa-file-waveform"></i>
+
+            </div>
+
+            <h3>Save & Track Reports</h3>
+
+            <p>
+
+                Save reports securely and
+                track your health journey.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- QUICK ACCESS -->
+
+    <section class="quick-access">
+
+        <h2>
+
+            Quick Access
+
+        </h2>
+
+
+
+        <div class="quick-grid">
+
+            <div
+            class="quick-card"
+            onclick="findNearbyLabs()">
+
+                <i class="fa-solid fa-flask"></i>
+
+                <div>
+
+                    <h3>Nearby Labs</h3>
+
+                    <p>Find labs around you</p>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+            class="quick-card"
+            onclick="findNearbyDoctors()">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+                <div>
+
+                    <h3>Nearby Doctors</h3>
+
+                    <p>Find doctors around you</p>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+            class="quick-card"
+            onclick="
+            window.location.href='recommend.html'
+            ">
+
+                <i class="fa-solid fa-heart"></i>
+
+                <div>
+
+                    <h3>Health Recommendations</h3>
+
+                    <p>Get personalized tests</p>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+            class="quick-card"
+            onclick="
+            window.location.href='reports.html'
+            ">
+
+                <i class="fa-solid fa-file-medical"></i>
+
+                <div>
+
+                    <h3>My Reports</h3>
+
+                    <p>View saved reports</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- STATS -->
+
+    <section class="stats-section">
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <h2>1000+</h2>
+
+            <p>Trusted Labs</p>
+
+        </div>
+
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-user-doctor"></i>
+
+            <h2>500+</h2>
+
+            <p>Expert Doctors</p>
+
+        </div>
+
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-face-smile"></i>
+
+            <h2>10K+</h2>
+
+            <p>Happy Users</p>
+
+        </div>
+
+
+
+        <div class="stat-box">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <h2>100%</h2>
+
+            <p>Secure & Private</p>
+
+        </div>
+
+    </section>
+
+<!-- EDUCATION SECTION -->
+
+<div class="education-section">
+
+    <h2>
+        Why Premarital Screening Matters
+    </h2>
+
+    <div class="education-grid">
+
+        <div class="edu-card">
+
+            <i class="fa-solid fa-dna"></i>
+
+            <h3>Genetic Awareness</h3>
+
+            <p>
+
+                Premarital genetic screening
+                helps identify inherited disorders
+                such as thalassemia and sickle
+                cell disease before marriage.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="edu-card">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            <h3>Healthy Future</h3>
+
+            <p>
+
+                Early health testing helps couples
+                make informed healthcare decisions
+                and reduce future medical risks.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="edu-card">
+
+            <i class="fa-solid fa-shield-heart"></i>
+
+            <h3>Disease Prevention</h3>
+
+            <p>
+
+                Screening for HIV, Hepatitis,
+                and other infections improves
+                long-term health safety for
+                both partners.
+
+            </p>
+
+        </div>
+
     </div>
-    <h1>Welcome to VowSecure</h1>
 
-    <h2>Search Labs</h2>
+</div>
 
-    <input type="text" id="city" placeholder="Enter city">
 
-    <button onclick="searchLabs()">
-        Search
-    </button>
 
-    <div id="result"></div>
+<!-- DISEASE SECTION -->
+
+<div class="disease-section">
+
+    <h2>
+        Disease Awareness
+    </h2>
+
+    <div class="disease-grid">
+
+        <div class="disease-card">
+
+            <i class="fa-solid fa-droplet"></i>
+
+            <h3>Thalassemia</h3>
+
+            <p>
+
+                A genetic blood disorder that
+                reduces hemoglobin production.
+                Premarital screening helps
+                prevent transmission to children.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="disease-card">
+
+            <i class="fa-solid fa-heart-circle-bolt"></i>
+
+            <h3>Sickle Cell Disease</h3>
+
+            <p>
+
+                An inherited disorder causing
+                abnormal red blood cells and
+                severe health complications.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="disease-card">
+
+            <i class="fa-solid fa-virus"></i>
+
+            <h3>HIV/AIDS</h3>
+
+            <p>
+
+                HIV weakens the immune system.
+                Early testing and awareness
+                improve prevention and treatment.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="disease-card">
+
+            <i class="fa-solid fa-shield-virus"></i>
+
+            <h3>Hepatitis B</h3>
+
+            <p>
+
+                A liver infection spread through
+                blood and body fluids.
+                Screening and vaccination are
+                highly important.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- EXPERT SECTION -->
+
+<div class="expert-section">
+
+    <!-- LEFT -->
+
+    <div class="expert-content">
+
+        <h2>
+
+            Looking for Healthcare Experts?
+
+        </h2>
+
+
+
+        <p>
+
+            Discover nearby diagnostic labs,
+            healthcare screening support,
+            and premarital health guidance
+            through VowSecure.
+
+        </p>
+
+
+
+        <div class="expert-buttons">
+
+            <button
+            onclick="window.location.href='labs.html'">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Find Nearby Labs
+
+            </button>
+
+
+
+            <button
+            onclick="findNearbyDoctors()">
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+                Find Nearby Doctors
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- RIGHT -->
+
+    <div class="expert-image">
+
+        <img
+        src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png"
+        alt="Doctor Illustration"
+        >
+
+    </div>
+
+</div>
+
+    <!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <!-- LEFT -->
+
+        <div class="footer-section">
+
+            <h2>
+
+                VowSecure
+
+            </h2>
+
+
+
+            <p>
+
+                Empowering couples with
+                healthcare awareness,
+                genetic screening insights,
+                and nearby diagnostic support.
+
+            </p>
+
+
+
+            <div class="social-icons">
+
+                <a href="#">
+
+                    <i class="fab fa-linkedin"></i>
+
+                </a>
+
+
+
+                <a href="#">
+
+                    <i class="fab fa-github"></i>
+
+                </a>
+
+
+
+                <a href="#">
+
+                    <i class="fab fa-twitter"></i>
+
+                </a>
+
+
+
+                <a href="#">
+
+                    <i class="fab fa-instagram"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- LINKS -->
+
+        <div class="footer-section">
+
+            <h3>
+
+                Quick Links
+
+            </h3>
+
+
+
+            <a href="index.html">
+
+                Home
+
+            </a>
+
+
+
+            <a href="labs.html">
+
+                Labs
+
+            </a>
+
+
+
+            <a href="recommend.html">
+
+                Recommendations
+
+            </a>
+
+
+
+            <a href="reports.html">
+
+                My Reports
+
+            </a>
+
+
+
+            <a href="login.html">
+
+                Login
+
+            </a>
+
+        </div>
+
+
+
+        <!-- SERVICES -->
+
+        <div class="footer-section">
+
+            <h3>
+
+                Services
+
+            </h3>
+
+
+
+            <a href="labs.html">
+
+                Nearby Labs
+
+            </a>
+
+
+
+            <a href="#">
+
+                Nearby Doctors
+
+            </a>
+
+
+
+            <a href="recommend.html">
+
+                AI Recommendations
+
+            </a>
+
+
+
+            <a href="reports.html">
+
+                Saved Reports
+
+            </a>
+
+        </div>
+
+
+
+        <!-- CONTACT -->
+
+        <div class="footer-section">
+
+            <h3>
+
+                Contact
+
+            </h3>
+
+
+
+            <p>
+
+                support@vowsecure.com
+
+            </p>
+
+
+
+            <p>
+
+                India Healthcare Initiative
+
+            </p>
+
+
+
+            <p>
+
+                Available 24×7
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- BOTTOM -->
+
+    <div class="footer-bottom">
+
+        © 2026 VowSecure |
+        Built with ❤️ by Rakhi Jha
+
+    </div>
+
+</footer>
+
+    <!-- CHATBOT BUTTON -->
+
+    <div
+    class="chatbot-button"
+    onclick="toggleChatbot()">
+
+        <i class="fa-solid fa-robot"></i>
+
+    </div>
+
+
+
+    <!-- CHATBOT -->
+
+    <div
+    class="chatbot-container"
+    id="chatbotContainer">
+
+        <div class="chatbot-header">
+
+            <h3>
+
+                VowSecure AI
+
+            </h3>
+
+
+
+            <span onclick="toggleChatbot()">
+
+                ✖
+
+            </span>
+
+        </div>
+
+
+
+        <div
+        class="chatbot-messages"
+        id="chatMessages">
+
+            <div class="bot-message">
+
+                Hello 👋
+                <br><br>
+
+                Ask me about:
+                <br><br>
+
+                • Thalassemia
+                <br>
+
+                • HIV
+                <br>
+
+                • CBC
+                <br>
+
+                • Carrier Screening
+
+            </div>
+
+        </div>
+
+
+
+        <div class="chat-input-area">
+
+            <input
+            type="text"
+            id="chatInput"
+            placeholder="Ask something..."
+            >
+
+
+
+            <button onclick="sendMessage()">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- LEAFLET -->
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- SCRIPT -->
 
     <script src="script.js"></script>
 
 </body>
+
 </html>

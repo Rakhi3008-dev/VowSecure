@@ -2,35 +2,188 @@
 <html>
 
 <head>
-    <title>Signup</title>
+
+    <title>Signup - VowSecure</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- FONT AWESOME -->
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
 </head>
 
 <body>
 
-    <h1>User Signup</h1>
+    <!-- NAVBAR -->
 
-    <input type="text" id="name" placeholder="Name">
+    <nav class="navbar">
 
-    <br><br>
+        <div class="nav-left">
 
-    <input type="email" id="email" placeholder="Email">
+            <div class="menu-icon">
 
-    <br><br>
+                <i class="fa-solid fa-bars"></i>
 
-    <input type="password" id="password" placeholder="Password">
+            </div>
 
-    <br><br>
+            <h2 class="logo">
+                VowSecure
+            </h2>
 
-    <input type="text" id="city" placeholder="City">
+        </div>
 
-    <br><br>
+        <div class="nav-links">
 
-    <button onclick="signup()">
-        Signup
-    </button>
+            <a href="index.html">
+                Home
+            </a>
 
-    <h3 id="message"></h3>
+            <a href="labs.html">
+                Labs
+            </a>
+
+            <a href="recommend.html">
+                Recommendations
+            </a>
+
+            <a href="reports.html">
+                Reports
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- SIGNUP SECTION -->
+
+    <div class="recommend-page">
+
+        <div class="recommend-box">
+
+            <h1>
+                Create Account
+            </h1>
+
+            <p class="recommend-subtitle">
+
+                Join VowSecure to access
+                healthcare recommendations,
+                nearby labs, doctors,
+                and saved reports.
+
+            </p>
+
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name"
+                >
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                >
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create password"
+                >
+
+            </div>
+
+
+
+            <!-- CITY -->
+
+            <div class="form-group">
+
+                <label>
+                    City
+                </label>
+
+                <input
+                    type="text"
+                    id="city"
+                    placeholder="Enter your city"
+                >
+
+            </div>
+
+
+
+            <!-- BUTTON -->
+
+            <button onclick="signup()">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Create Account
+
+            </button>
+
+
+
+            <!-- LOGIN -->
+
+            <p class="auth-text">
+
+                Already have an account?
+
+                <a href="login.html">
+
+                    Login
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+
 
     <script src="script.js"></script>
 
