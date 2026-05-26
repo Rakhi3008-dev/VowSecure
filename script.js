@@ -4,7 +4,7 @@ async function searchLabs() {
   const city = document.getElementById("city").value;
 
   const response = await fetch(
-    `http://localhost:8000/search-healthcare/${city}`
+    `https://vowsecure.onrender.com/search-healthcare/${city}`
   );
 
   const data = await response.json();
@@ -108,7 +108,7 @@ async function findNearbyLabs() {
       const userLon = position.coords.longitude;
 
       const response = await fetch(
-        `http://localhost:8000/nearby-labs?lat=${userLat}&lon=${userLon}`
+        `https://vowsecure.onrender.com/nearby-labs?lat=${userLat}&lon=${userLon}`
       );
 
       const data = await response.json();
@@ -223,7 +223,7 @@ async function getRecommendations() {
   const sexually_active = document.getElementById("sexually_active").value;
 
   const response = await fetch(
-    `http://localhost:8000/recommend?family_history=${family_history}&cousin_marriage=${cousin_marriage}&sexually_active=${sexually_active}`
+    `https://vowsecure.onrender.com/recommend?family_history=${family_history}&cousin_marriage=${cousin_marriage}&sexually_active=${sexually_active}`
   );
 
   const data = await response.json();
@@ -679,7 +679,8 @@ async function saveReport(recommendations, riskScore) {
   const email = prompt("Enter your email");
 
   const response = await fetch(
-    `http://localhost:8000/save-report?email=${email}&recommendations=${recommendations}&risk_score=${riskScore}`
+    `https://vowsecure.onrender.com/save-report?email=${email}&recommendations=${recommendations}&risk_score=${riskScore}`
+
   );
 
   const data = await response.text();
@@ -699,7 +700,7 @@ async function signup() {
   const city = document.getElementById("city").value;
 
   const response = await fetch(
-    `http://localhost:8000/signup?name=${name}&email=${email}&password=${password}&city=${city}`
+    `https://vowsecure.onrender.com/signup?name=${name}&email=${email}&password=${password}&city=${city}`
   );
 
   const data = await response.text();
@@ -717,7 +718,7 @@ async function login() {
   const password = document.getElementById("password").value;
 
   const response = await fetch(
-    `http://localhost:8000/login?email=${email}&password=${password}`
+    `https://vowsecure.onrender.com/login?email=${email}&password=${password}`
   );
 
   const data = await response.text();
@@ -748,7 +749,7 @@ async function loadReports() {
   const email = prompt("Enter your email");
 
   const response = await fetch(
-    `http://localhost:8000/my-reports?email=${email}`
+    `https://vowsecure.onrender.com/my-reports?email=${email}`
   );
 
   const data = await response.json();
@@ -798,7 +799,7 @@ async function findNearbyDoctors() {
       console.log(userLat, userLon);
 
       const response = await fetch(
-        `http://localhost:8000/nearby-doctors?lat=${userLat}&lon=${userLon}`
+        `https://vowsecure.onrender.com/nearby-doctors?lat=${userLat}&lon=${userLon}`
       );
 
       const data = await response.json();
@@ -884,7 +885,7 @@ async function saveReport(recommendations, riskScore) {
   }
 
   const response = await fetch(
-    `http://localhost:8000/save-report?email=${email}&recommendations=${recommendations}&riskScore=${riskScore}`
+    `https://vowsecure.onrender.com/save-report?email=${email}&recommendations=${recommendations}&riskScore=${riskScore}`
   );
 
   const data = await response.text();
@@ -895,7 +896,7 @@ async function saveReport(recommendations, riskScore) {
 async function loadReports() {
   const email = localStorage.getItem("email");
 
-  const response = await fetch(`http://localhost:8000/reports/${email}`);
+  const response = await fetch(`https://vowsecure.onrender.com/reports/${email}`);
 
   const data = await response.json();
 
@@ -950,7 +951,7 @@ async function loadDashboard() {
 
   // FETCH REPORTS
 
-  const response = await fetch(`http://localhost:8000/reports/${email}`);
+  const response = await fetch(`https://vowsecure.onrender.com/reports/${email}`);
 
   const data = await response.json();
 
