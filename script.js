@@ -705,12 +705,22 @@ async function signup() {
 
   const data = await response.text();
 
-  document.getElementById("message").innerHTML = data;
+  const message =
+document.getElementById(
+"message"
+);
+
+if(message){
+
+    message.innerHTML = data;
+}
+
+alert(data);
 }
 
 // LOGIN
 
-// LOGIN
+
 
 async function login() {
   const email = document.getElementById("email").value;
@@ -722,6 +732,17 @@ async function login() {
   );
 
   const data = await response.text();
+  const message =
+document.getElementById(
+"message"
+);
+
+if(message){
+
+    message.innerHTML = data;
+}
+
+alert(data);
 
   // SUCCESS
 
