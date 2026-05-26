@@ -146,11 +146,159 @@
         </div>
 
     </div>
+    <script type="module">
 
+        import { initializeApp }
+        
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        
+        
+        
+        import {
+        
+            getAuth,
+        
+            createUserWithEmailAndPassword,
+        
+            signInWithEmailAndPassword
+        
+        }
+        
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        
+        
+        const firebaseConfig = {
+        apiKey: "AIzaSyA8u_Hc_uMqTom7IyEzGcQC2kIwoLqRagY",
+        authDomain: "vow-ab245.firebaseapp.com",
+        projectId: "vow-ab245",
+        storageBucket: "vow-ab245.firebasestorage.app",
+        messagingSenderId: "778275601766",
+        appId: "1:778275601766:web:b127c8efa5b39bb38c5ca7",
+        measurementId: "G-NJ48TZR36M"
+      };
+      
+        
+        
+        
+        const app =
+        initializeApp(firebaseConfig);
+        
+        const auth =
+        getAuth(app);
+        
+        
+        
+        // SIGNUP
+        
+        window.signup =
+        async function(){
+        
+            const email =
+            document.getElementById(
+                "email"
+            ).value;
+        
+        
+        
+            const password =
+            document.getElementById(
+                "password"
+            ).value;
+        
+        
+        
+            try{
+        
+                await
+                createUserWithEmailAndPassword(
+        
+                    auth,
+                    email,
+                    password
+                );
+        
+        
+        
+                alert(
+                    "Signup Successful"
+                );
+        
+        
+        
+                window.location.href =
+                "login.html";
+            }
+        
+            catch(error){
+        
+                alert(error.message);
+            }
+        };
+        
+        
+        
+        // LOGIN
+        
+        window.login =
+        async function(){
+        
+            const email =
+            document.getElementById(
+                "email"
+            ).value;
+        
+        
+        
+            const password =
+            document.getElementById(
+                "password"
+            ).value;
+        
+        
+        
+            try{
+        
+                await
+                signInWithEmailAndPassword(
+        
+                    auth,
+                    email,
+                    password
+                );
+        
+        
+        
+                localStorage.setItem(
+                    "email",
+                    email
+                );
+        
+        
+        
+                alert(
+                    "Login Successful"
+                );
+        
+        
+        
+                window.location.href =
+                "dashboard.html";
+            }
+        
+            catch(error){
+        
+                alert(error.message);
+            }
+        };
+        
+        </script>
 
 
     <script src="script.js"></script>
-
+    <script
+    type="module"
+    src="firebase.js">
+    </script>
 </body>
 
 </html>

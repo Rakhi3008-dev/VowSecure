@@ -1,102 +1,192 @@
-// SEARCH LABS
+async function searchLabs(){
 
-async function searchLabs() {
-  const city = document.getElementById("city").value;
+  const city =
+  document.getElementById(
+      "city"
+  ).value;
 
-  const response = await fetch(
-    `https://vowsecure.onrender.com/search-healthcare/${city}`
-  );
 
-  const data = await response.json();
 
-  // REMOVE OLD MAP
+  if(city === ""){
 
-  if (window.currentMap) {
-    window.currentMap.remove();
+      alert(
+          "Enter city name"
+      );
+
+      return;
   }
 
-  // CREATE MAP
 
-  const map = L.map("map").setView([20.5937, 78.9629], 5);
 
-  window.currentMap = map;
+  const result =
+  document.getElementById(
+      "result"
+  );
 
-  L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 
-    {
-      attribution: "&copy; OpenStreetMap contributors",
-    }
-  ).addTo(map);
 
-  let output = "";
+  result.innerHTML =
 
-  data.forEach((place) => {
-    output += `
+  `<p>Searching labs...</p>`;
 
-        <div class="health-card">
-        
-            <div class="health-icon">
-        
-                <i class="fa-solid fa-flask"></i>
-        
-            </div>
-        
-            <h2>${lab.name || place.name}</h2>
-        
-            <p class="speciality">
-        
-                Diagnostic Laboratory
-        
-            </p>
-        
-            <div class="health-info">
-        
-                <p>
-        
-                    <i class="fa-solid fa-location-dot"></i>
-        
-                    ${lab.address || place.address}
-        
-                </p>
-        
-            </div>
-        
-        
-        
-            <div class="lab-actions">
-        
-                <a
-                class="test-btn"
-        
-                target="_blank"
-        
-                href="https://www.google.com/maps/dir/?api=1&destination=${
-                  lab.lat || place.lat
-                },${lab.lon || place.lon}">
-        
-                    <i class="fa-solid fa-location-arrow"></i>
-        
-                    Get Directions
-        
-                </a>
-        
-            </div>
-        
-        </div>
-        
-        `;
 
-    // MAP MARKER
 
-    L.marker([place.lat, place.lon])
+  try{
 
-      .addTo(map)
+      const response =
+      await fetch(
 
-      .bindPopup(place.name);
-  });
+          `https://vowsecure.onrender.com/search-healthcare/${city}`
 
-  document.getElementById("result").innerHTML = output;
+      );
+
+
+
+      const data =
+      await response.json();
+
+
+
+      // REMOVE OLD MAP
+
+      if(window.currentMap){
+
+          window.currentMap.remove();
+      }
+
+
+
+      // CREATE MAP
+
+      const map =
+      L.map("map")
+      .setView(
+          [20.5937, 78.9629],
+          5
+      );
+
+
+
+      window.currentMap =
+      map;
+
+
+
+      L.tileLayer(
+
+          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+          {
+
+              attribution:
+              "&copy; OpenStreetMap contributors"
+          }
+
+      ).addTo(map);
+
+
+
+      let output = "";
+
+
+
+      data.forEach((place)=>{
+
+          output += `
+
+          <div class="health-card">
+
+              <div class="health-icon">
+
+                  <i class="fa-solid fa-flask"></i>
+
+              </div>
+
+              <h2>
+
+                  ${place.name}
+
+              </h2>
+
+              <p class="speciality">
+
+                  Diagnostic Laboratory
+
+              </p>
+
+              <div class="health-info">
+
+                  <p>
+
+                      <i class="fa-solid fa-location-dot"></i>
+
+                      ${place.address}
+
+                  </p>
+
+              </div>
+
+              <div class="lab-actions">
+
+                  <a
+
+                  class="test-btn"
+
+                  target="_blank"
+
+                  href="https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}">
+
+                      <i class="fa-solid fa-location-arrow"></i>
+
+                      Get Directions
+
+                  </a>
+
+              </div>
+
+          </div>
+
+          `;
+
+
+
+          L.marker([
+
+              place.lat,
+              place.lon
+
+          ])
+
+          .addTo(map)
+
+          .bindPopup(place.name);
+      });
+
+
+
+      if(output === ""){
+
+          output =
+
+          `<p>No labs found</p>`;
+      }
+
+
+
+      result.innerHTML =
+      output;
+  }
+
+  catch(error){
+
+      console.log(error);
+
+
+
+      result.innerHTML =
+
+      `<p>Failed to load labs</p>`;
+  }
 }
 // FIND NEARBY LABS
 
@@ -673,143 +763,9 @@ async function getRecommendations() {
     `;
   document.getElementById("result").innerHTML = output;
 }
-// SAVE REPORT
 
-async function saveReport(recommendations, riskScore) {
-  const email = prompt("Enter your email");
-
-  const response = await fetch(
-    `https://vowsecure.onrender.com/save-report?email=${email}&recommendations=${recommendations}&risk_score=${riskScore}`
-
-  );
-
-  const data = await response.text();
-
-  alert(data);
-}
-
-// SIGNUP
-
-async function signup() {
-  const name = document.getElementById("name").value;
-
-  const email = document.getElementById("email").value;
-
-  const password = document.getElementById("password").value;
-
-  const city = document.getElementById("city").value;
-
-  const response = await fetch(
-    `https://vowsecure.onrender.com/signup?name=${name}&email=${email}&password=${password}&city=${city}`
-  );
-
-  const data = await response.text();
-
-  const message =
-document.getElementById(
-"message"
-);
-
-if(message){
-
-    message.innerHTML = data;
-}
-
-alert(data);
-}
-
-// LOGIN
-
-
-
-async function login() {
-  const email = document.getElementById("email").value;
-
-  const password = document.getElementById("password").value;
-
-  const response = await fetch(
-    `https://vowsecure.onrender.com/login?email=${email}&password=${password}`
-  );
-
-  const data = await response.text();
-  const message =
-document.getElementById(
-"message"
-);
-
-if(message){
-
-    message.innerHTML = data;
-}
-
-alert(data);
-
-  // SUCCESS
-
-  if (data === "Login Successful") {
-    // SAVE EMAIL
-
-    localStorage.setItem("email", email);
-
-    alert("Login Successful");
-
-    // REDIRECT
-
-    window.location.href = "dashboard.html";
-  }
-
-  // FAILED
-  else {
-    alert(data);
-  }
-}
-
-// FIND NEARBY LABS
-
-async function loadReports() {
-  const email = prompt("Enter your email");
-
-  const response = await fetch(
-    `https://vowsecure.onrender.com/my-reports?email=${email}`
-  );
-
-  const data = await response.json();
-
-  let output = "";
-
-  data.forEach((report) => {
-    output += `
-
-            <div class="card">
-
-                <h2>
-                    Risk Score:
-                    ${report.risk_score}
-                </h2>
-
-                <p>
-
-                    <b>Recommendations:</b>
-
-                    ${report.recommendations}
-
-                </p>
-
-                <p>
-
-                    <b>Date:</b>
-
-                    ${report.created_at}
-
-                </p>
-
-            </div>
-
-        `;
-  });
-
-  document.getElementById("reports").innerHTML = output;
-}
+  //nearby       
+ 
 async function findNearbyDoctors() {
   navigator.geolocation.getCurrentPosition(
     async (position) => {
@@ -896,96 +852,9 @@ async function findNearbyDoctors() {
   );
 }
 
-async function saveReport(recommendations, riskScore) {
-  const email = localStorage.getItem("email");
 
-  if (!email) {
-    alert("Please login first");
 
-    return;
-  }
 
-  const response = await fetch(
-    `https://vowsecure.onrender.com/save-report?email=${email}&recommendations=${recommendations}&riskScore=${riskScore}`
-  );
-
-  const data = await response.text();
-
-  alert(data);
-}
-
-async function loadReports() {
-  const email = localStorage.getItem("email");
-
-  const response = await fetch(`https://vowsecure.onrender.com/reports/${email}`);
-
-  const data = await response.json();
-
-  let output = "";
-
-  data.forEach((report) => {
-    output += `
-
-        <div class="health-card">
-
-            <h2>
-                Risk Score:
-                ${report.risk_score}
-            </h2>
-
-            <p>
-
-                ${report.recommendations}
-
-            </p>
-
-            <p>
-
-                ${report.created_at}
-
-            </p>
-
-        </div>
-
-        `;
-  });
-
-  document.getElementById("reports").innerHTML = output;
-}
-
-// LOAD DASHBOARD
-
-async function loadDashboard() {
-  const email = localStorage.getItem("email");
-
-  // REDIRECT IF NOT LOGGED IN
-
-  if (!email) {
-    window.location.href = "login.html";
-
-    return;
-  }
-
-  // SHOW USER NAME
-
-  document.getElementById("welcomeUser").innerHTML = `Welcome, ${email}`;
-
-  // FETCH REPORTS
-
-  const response = await fetch(`https://vowsecure.onrender.com/reports/${email}`);
-
-  const data = await response.json();
-
-  // TOTAL REPORTS
-
-  document.getElementById("totalReports").innerHTML = data.length;
-
-  // LATEST RISK SCORE
-
-  if (data.length > 0) {
-    document.getElementById("latestRisk").innerHTML = data[0].risk_score;
-  }
-}
 // TOGGLE CHATBOT
 
 function toggleChatbot() {
@@ -1227,12 +1096,6 @@ Premarital screening helps reduce transmission risks and future complications.`;
 
 }
 
-
-function logout() {
-  localStorage.removeItem("email");
-
-  window.location.href = "login.html";
-}
 
 function toggleMenu() {
   const navLinks = document.getElementById("navLinks");

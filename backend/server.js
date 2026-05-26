@@ -45,59 +45,108 @@ app.get("/labs", (req, res) => {
 
 // GET LABS BY CITY
 
-app.get("/search-healthcare/:city", async (req, res) => {
-  const city = req.params.city;
+// SEARCH HEALTHCARE LABS
 
-  try {
-    const fetch = (await import("node-fetch")).default;
-
-    const query = `
-[out:json];
-(
-node["healthcare"="laboratory"](area[name="${city}"]);
-node["amenity"="hospital"](area[name="${city}"]);
-);
-out;
-`;
-
-    const response = await fetch(
-      "https://overpass-api.de/api/interpreter",
-
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-
-        body: query,
-      }
-    );
-
-    const text = await response.text();
-
-    console.log(text);
-
-    const data = JSON.parse(text);
-
-    const places = data.elements.map((place) => ({
-      name: place.tags.name || "Healthcare Center",
-
-      lat: place.lat,
-
-      lon: place.lon,
-
-      address: place.tags["addr:full"] || city,
-    }));
-
-    res.json(places);
-  } catch (error) {
-    console.log(error);
-
-    res.send("Error");
-  }
-});
-
+app.get(
+    "/search-healthcare/:city",
+    
+    async(req,res)=>{
+    
+        try{
+    
+            const city =
+            req.params.city;
+    
+    
+    
+            // OVERPASS QUERY
+    
+            const query = `
+    
+            [out:json];
+    
+            area["name"="${city}"]->.searchArea;
+    
+            (
+    
+              node["amenity"="hospital"](area.searchArea);
+    
+              node["healthcare"="laboratory"](area.searchArea);
+    
+            );
+    
+            out body;
+    
+            `;
+    
+    
+    
+            const response =
+            await fetch(
+    
+                "https://overpass-api.de/api/interpreter",
+    
+                {
+    
+                    method: "POST",
+    
+                    body: query
+                }
+            );
+    
+    
+    
+            const data =
+            await response.json();
+    
+    
+    
+            const results =
+            data.elements.map((place)=>({
+    
+                name:
+    
+                place.tags.name ||
+    
+                "Healthcare Center",
+    
+    
+    
+                address:
+    
+                place.tags["addr:full"] ||
+    
+                city,
+    
+    
+    
+                lat:
+                place.lat,
+    
+    
+    
+                lon:
+                place.lon
+            }));
+    
+    
+    
+            res.json(results);
+        }
+    
+        catch(error){
+    
+            console.log(error);
+    
+    
+    
+            res.status(500).json({
+    
+                error:
+                "Failed to fetch labs"
+            });
+        }
+    });
 // GET LABS BY TEST TYPE
 app.get("/tests/:test", (req, res) => {
   const test = req.params.test;
