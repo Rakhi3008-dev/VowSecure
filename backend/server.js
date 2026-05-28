@@ -9,6 +9,9 @@ const app = express();
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, "../frontend")));
+app.get("/", (req, res) => {
+  res.send("VowSecure Backend Running");
+});
 // GET ALL LABS
 
 app.get("/labs", (req, res) => {
@@ -264,13 +267,7 @@ out;
     res.send("Error fetching doctors");
   }
 });
-app.get("/", (req, res) => {
 
-    res.send(
-      "VowSecure Backend Running"
-    );
-  
-  });
 app.listen(8000, () => {
   console.log("Server running on port 8000");
 });
