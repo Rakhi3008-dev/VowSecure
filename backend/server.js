@@ -264,7 +264,13 @@ out;
     res.send("Error fetching doctors");
   }
 });
+app.get("/", (req, res) => {
 
+    res.send(
+      "VowSecure Backend Running"
+    );
+  
+  });
 app.listen(8000, () => {
   console.log("Server running on port 8000");
 });
