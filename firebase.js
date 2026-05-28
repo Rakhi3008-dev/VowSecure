@@ -10,7 +10,13 @@ import {
 
     createUserWithEmailAndPassword,
 
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut,
+
+    GoogleAuthProvider,
+
+    signInWithPopup
+
 
 }
 
@@ -167,7 +173,53 @@ async function(){
     }
 };
 
+// GOOGLE LOGIN
 
+window.googleLogin =
+async function(){
+
+    try{
+
+        const provider =
+        new GoogleAuthProvider();
+
+
+
+        const result =
+        await signInWithPopup(
+
+            auth,
+            provider
+        );
+
+
+
+        localStorage.setItem(
+
+            "email",
+
+            result.user.email
+        );
+
+
+
+        alert(
+            "Google Login Successful"
+        );
+
+
+
+        window.location.href =
+        "dashboard.html";
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert(error.message);
+    }
+};
 
 // SAVE REPORT
 
