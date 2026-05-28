@@ -5,7 +5,8 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const fetch = (...args) => import("node-fetch") .then(({default: fetch}) => fetch(...args));
+const fetch = (...args) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(...args));
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, "../frontend")));
@@ -25,67 +26,13 @@ app.get("/labs", (req, res) => {
   });
 });
 
-// SEARCH HEALTHCARE LABS
 
-app.get(
-  "/search-healthcare/:city",
+// SEARCH HEALTHCARE LABS 
+app.get( "/search-healthcare/:city", async (req, res) => { try { const city = req.params.city; 
+    const query = ` [out:json][timeout:25]; area["name"="${city}"]->.searchArea; ( node["healthcare"="laboratory"](area.searchArea); node["amenity"="hospital"](area.searchArea); ); out body; `; 
+     const response = await fetch( "https://overpass-api.de/api/interpreter", { method: "POST", body: query } ); const data = await response.json(); 
+     const results = data.elements.map((place) => ({ name: place.tags.name || "Diagnostic Lab", address: place.tags["addr:full"] || city, lat: place.lat, lon: place.lon })); res.json(results); } catch (error) { console.log(error); res.status(500).json({ error: "Failed to fetch labs" }); } } );
 
-  async (req, res) => {
-    try {
-      const city = req.params.city;
-
-      // OVERPASS QUERY
-
-      const query = `
-    
-            [out:json];
-    
-            area["name"="${city}"]->.searchArea;
-    
-            (
-    
-              node["amenity"="hospital"](area.searchArea);
-    
-              node["healthcare"="laboratory"](area.searchArea);
-    
-            );
-    
-            out body;
-    
-            `;
-
-      const response = await fetch(
-        "https://overpass-api.de/api/interpreter",
-
-        {
-          method: "POST",
-
-          body: query,
-        }
-      );
-
-      const data = await response.json();
-
-      const results = data.elements.map((place) => ({
-        name: place.tags.name || "Healthcare Center",
-
-        address: place.tags["addr:full"] || city,
-
-        lat: place.lat,
-
-        lon: place.lon,
-      }));
-
-      res.json(results);
-    } catch (error) {
-      console.log(error);
-
-      res.status(500).json({
-        error: "Failed to fetch labs",
-      });
-    }
-  }
-);
 // GET LABS BY TEST TYPE
 app.get("/tests/:test", (req, res) => {
   const test = req.params.test;
