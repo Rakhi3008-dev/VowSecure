@@ -4,6 +4,7 @@ const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 const path = require("path");
+require("dotenv").config();
 
 const app = express();
 
@@ -460,6 +461,103 @@ out;
     res.send("Error fetching doctors");
   }
 });
+
+// AI REPORT ANALYSIS
+
+
+// GEMINI AI
+
+const {
+
+    GoogleGenerativeAI
+
+} = require(
+    "@google/generative-ai"
+);
+
+
+
+const genAI =
+new GoogleGenerativeAI(
+
+    process.env.GEMINI_API_KEY
+);
+
+
+
+// AI REPORT ANALYSIS
+
+app.post(
+
+"/analyze-report",
+
+async(req,res)=>{
+
+    try{
+
+        const {
+
+            reportText
+
+        } = req.body;
+
+
+
+        const model =
+        genAI.getGenerativeModel({
+
+            model:
+            "gemini-1.5-flash"
+        });
+
+
+
+        const result =
+        await model.generateContent(
+
+`Analyze this medical report and provide:
+
+1. Summary
+2. Risk level
+3. Abnormal values
+4. Recommendations
+
+Medical Report:
+
+${reportText}`
+
+        );
+
+
+
+        const response =
+
+        result.response.text();
+
+
+
+        res.json({
+
+            analysis:
+            response
+        });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+
+
+        res.status(500).json({
+
+            error:
+            "AI analysis failed"
+        });
+    }
+});
+
 app.listen(8000, () => {
   console.log("Server running on port 8000");
 });

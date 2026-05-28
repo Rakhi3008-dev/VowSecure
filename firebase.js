@@ -33,7 +33,15 @@ import {
 
     addDoc,
 
-    getDocs
+    getDocs,
+
+    getStorage,
+
+    ref,
+
+    uploadBytes,
+
+    getDownloadURL
 
 }
 
@@ -68,7 +76,8 @@ getAuth(app);
 const db =
 getFirestore(app);
 
-
+const storage =
+getStorage(app);
 
 // SIGNUP
 
@@ -274,6 +283,116 @@ async function(
         `<p>${error.message}</p>`;
     }
 };
+
+// UPLOAD REPORT
+
+window.uploadReport =
+async function(){
+
+    const fileInput =
+    document.getElementById(
+        "reportFile"
+    );
+
+
+
+    const file =
+    fileInput.files[0];
+
+
+
+    if(!file){
+
+        alert(
+            "Select a file"
+        );
+
+        return;
+    }
+
+
+
+    try{
+
+        const email =
+        localStorage.getItem(
+            "email"
+        );
+
+
+
+        // STORAGE PATH
+
+        const storageRef =
+        ref(
+
+            storage,
+
+            `reports/${email}/${file.name}`
+        );
+
+
+
+        // UPLOAD
+
+        await uploadBytes(
+
+            storageRef,
+
+            file
+        );
+
+
+
+        // GET URL
+
+        const fileURL =
+        await getDownloadURL(
+            storageRef
+        );
+
+
+
+        // SAVE IN FIRESTORE
+
+        await addDoc(
+
+            collection(
+                db,
+                "uploadedReports"
+            ),
+
+            {
+
+                email,
+
+                fileName:
+                file.name,
+
+                fileURL,
+
+                createdAt:
+                new Date()
+            }
+        );
+
+
+
+        alert(
+            "Report Uploaded Successfully"
+        );
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert(
+            "Upload Failed"
+        );
+    }
+};
 // LOAD REPORTS
 
 window.loadReports =
@@ -378,6 +497,168 @@ async function(){
     }
 };
 
+// AI REPORT ANALYSIS
+
+window.analyzeReport =
+async function(){
+
+    const fileInput =
+    document.getElementById(
+        "reportFile"
+    );
+
+
+
+    const file =
+    fileInput.files[0];
+
+
+
+    if(!file){
+
+        alert(
+            "Select report first"
+        );
+
+        return;
+    }
+
+
+
+    const formData =
+    new FormData();
+
+
+
+    formData.append(
+        "file",
+        file
+    );
+
+
+
+    formData.append(
+        "apikey",
+        "K87817466788957"
+    );
+
+
+
+    try{
+
+        // OCR API
+
+        const response =
+        await fetch(
+
+            "https://api.ocr.space/parse/image",
+
+            {
+
+                method: "POST",
+
+                body: formData
+            }
+        );
+
+
+
+        const result =
+        await response.json();
+
+
+
+        const extractedText =
+
+        result.ParsedResults[0]
+        .ParsedText;
+
+
+
+        console.log(
+            extractedText
+        );
+
+
+
+        // GEMINI AI
+
+        const aiResponse =
+        await fetch(
+
+        "AQ.Ab8RN6J8JdJbugIEYD_7spw9Q8D82wYnWrMHaigFefHI2rqTcw",
+
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+
+                contents: [
+
+                    {
+
+                        parts: [
+
+                            {
+
+                                text:
+
+`Analyze this medical report and give:
+
+1. Summary
+2. Risk level
+3. Abnormal values
+4. Recommendations
+
+Report:
+
+${extractedText}`
+
+                            }
+                        ]
+                    }
+                ]
+            })
+        });
+
+
+
+        const aiData =
+        await aiResponse.json();
+
+
+
+        const analysis =
+
+        aiData.candidates[0]
+        .content.parts[0].text;
+
+
+
+        document.getElementById(
+            "analysisResult"
+        ).innerHTML =
+
+        analysis;
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert(
+            "Analysis Failed"
+        );
+    }
+};
 //dashboard
 // LOAD DASHBOARD
 
