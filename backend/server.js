@@ -1,36 +1,14 @@
-
 const express = require("express");
-const mysql = require("mysql2");
+
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 const path = require("path");
-require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, "../frontend")));
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Rakhi@123",
-  database: "VowSecure",
-});
-
-db.connect((err) => {
-  if (err) {
-    console.log("Database Connection Failed");
-    console.log(err);
-  } else {
-    console.log("MySQL Connected");
-  }
-});
-
-app.get("/", (req, res) => {
-  res.send("VowSecure Backend Running");
-});
-
 // GET ALL LABS
 
 app.get("/labs", (req, res) => {
@@ -44,25 +22,18 @@ app.get("/labs", (req, res) => {
   });
 });
 
-// GET LABS BY CITY
-
 // SEARCH HEALTHCARE LABS
 
 app.get(
-    "/search-healthcare/:city",
-    
-    async(req,res)=>{
-    
-        try{
-    
-            const city =
-            req.params.city;
-    
-    
-    
-            // OVERPASS QUERY
-    
-            const query = `
+  "/search-healthcare/:city",
+
+  async (req, res) => {
+    try {
+      const city = req.params.city;
+
+      // OVERPASS QUERY
+
+      const query = `
     
             [out:json];
     
@@ -79,75 +50,39 @@ app.get(
             out body;
     
             `;
-    
-    
-    
-            const response =
-            await fetch(
-    
-                "https://overpass-api.de/api/interpreter",
-    
-                {
-    
-                    method: "POST",
-    
-                    body: query
-                }
-            );
-    
-    
-    
-            const data =
-            await response.json();
-    
-    
-    
-            const results =
-            data.elements.map((place)=>({
-    
-                name:
-    
-                place.tags.name ||
-    
-                "Healthcare Center",
-    
-    
-    
-                address:
-    
-                place.tags["addr:full"] ||
-    
-                city,
-    
-    
-    
-                lat:
-                place.lat,
-    
-    
-    
-                lon:
-                place.lon
-            }));
-    
-    
-    
-            res.json(results);
+
+      const response = await fetch(
+        "https://overpass-api.de/api/interpreter",
+
+        {
+          method: "POST",
+
+          body: query,
         }
-    
-        catch(error){
-    
-            console.log(error);
-    
-    
-    
-            res.status(500).json({
-    
-                error:
-                "Failed to fetch labs"
-            });
-        }
-    });
+      );
+
+      const data = await response.json();
+
+      const results = data.elements.map((place) => ({
+        name: place.tags.name || "Healthcare Center",
+
+        address: place.tags["addr:full"] || city,
+
+        lat: place.lat,
+
+        lon: place.lon,
+      }));
+
+      res.json(results);
+    } catch (error) {
+      console.log(error);
+
+      res.status(500).json({
+        error: "Failed to fetch labs",
+      });
+    }
+  }
+);
 // GET LABS BY TEST TYPE
 app.get("/tests/:test", (req, res) => {
   const test = req.params.test;
@@ -166,72 +101,6 @@ app.get("/tests/:test", (req, res) => {
   );
 });
 
-// USER SIGNUP
-
-app.get("/signup", async (req, res) => {
-  const name = req.query.name;
-  const email = req.query.email;
-  const password = req.query.password;
-  const city = req.query.city;
-
-  try {
-    // HASH PASSWORD
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    db.query(
-      "INSERT INTO users (name, email, password, city) VALUES (?, ?, ?, ?)",
-
-      [name, email, hashedPassword, city],
-
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          res.send(err);
-        } else {
-          res.send("User Registered Successfully");
-        }
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.send("Error");
-  }
-});
-// USER LOGIN
-app.get("/login", (req, res) => {
-  const email = req.query.email;
-  const password = req.query.password;
-
-  db.query(
-    "SELECT * FROM users WHERE email = ?",
-
-    [email],
-
-    async (err, result) => {
-      if (err) {
-        console.log(err);
-        res.send(err);
-      } else {
-        if (result.length > 0) {
-          const user = result[0];
-
-          // CHECK HASHED PASSWORD
-
-          const isMatch = await bcrypt.compare(password, user.password);
-
-          if (isMatch) {
-            res.send("Login Successful");
-          } else {
-            res.send("Invalid Email or Password");
-          }
-        } else {
-          res.send("Invalid Email or Password");
-        }
-      }
-    }
-  );
-});
 //recommendations based on user input
 app.get("/recommend", (req, res) => {
   const family_history = req.query.family_history;
@@ -349,72 +218,6 @@ out;
   }
 });
 
-// SAVE REPORT
-
-app.get("/save-report", (req, res) => {
-  const email = req.query.email;
-
-  const recommendations = req.query.recommendations;
-
-  const riskScore = req.query.riskScore;
-
-  db.query(
-    "INSERT INTO reports (email, recommendations, risk_score) VALUES (?, ?, ?)",
-
-    [email, recommendations, riskScore],
-
-    (err, result) => {
-      if (err) {
-        console.log(err);
-
-        res.send(err);
-      } else {
-        res.send("Report Saved Successfully");
-      }
-    }
-  );
-});
-// GET REPORTS
-
-app.get("/reports/:email", (req, res) => {
-  const email = req.params.email;
-
-  db.query(
-    "SELECT * FROM reports WHERE email = ? ORDER BY created_at DESC",
-
-    [email],
-
-    (err, result) => {
-      if (err) {
-        console.log(err);
-
-        res.send(err);
-      } else {
-        res.json(result);
-      }
-    }
-  );
-});
-
-app.get("/my-reports", (req, res) => {
-  const email = req.query.email;
-
-  db.query(
-    "SELECT * FROM reports WHERE user_email = ? ORDER BY created_at DESC",
-
-    [email],
-
-    (err, result) => {
-      if (err) {
-        console.log(err);
-
-        res.send(err);
-      } else {
-        res.json(result);
-      }
-    }
-  );
-});
 app.get("/nearby-doctors", async (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
@@ -462,103 +265,6 @@ out;
   }
 });
 
-// AI REPORT ANALYSIS
-
-
-// GEMINI AI
-
-const {
-
-    GoogleGenerativeAI
-
-} = require(
-    "@google/generative-ai"
-);
-
-
-
-const genAI =
-new GoogleGenerativeAI(
-
-    process.env.GEMINI_API_KEY
-);
-
-
-
-// AI REPORT ANALYSIS
-
-app.post(
-
-"/analyze-report",
-
-async(req,res)=>{
-
-    try{
-
-        const {
-
-            reportText
-
-        } = req.body;
-
-
-
-        const model =
-        genAI.getGenerativeModel({
-
-            model:
-            "gemini-1.5-flash"
-        });
-
-
-
-        const result =
-        await model.generateContent(
-
-`Analyze this medical report and provide:
-
-1. Summary
-2. Risk level
-3. Abnormal values
-4. Recommendations
-
-Medical Report:
-
-${reportText}`
-
-        );
-
-
-
-        const response =
-
-        result.response.text();
-
-
-
-        res.json({
-
-            analysis:
-            response
-        });
-
-    }
-
-    catch(error){
-
-        console.log(error);
-
-
-
-        res.status(500).json({
-
-            error:
-            "AI analysis failed"
-        });
-    }
-});
-
 app.listen(8000, () => {
   console.log("Server running on port 8000");
 });
-
