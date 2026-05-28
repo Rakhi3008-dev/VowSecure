@@ -27,11 +27,119 @@ app.get("/labs", (req, res) => {
 });
 
 
-// SEARCH HEALTHCARE LABS 
-app.get( "/search-healthcare/:city", async (req, res) => { try { const city = req.params.city; 
-    const query = ` [out:json][timeout:25]; area["name"="${city}"]->.searchArea; ( node["healthcare"="laboratory"](area.searchArea); node["amenity"="hospital"](area.searchArea); ); out body; `; 
-     const response = await fetch( "https://overpass-api.de/api/interpreter", { method: "POST", body: query } ); const data = await response.json(); 
-     const results = data.elements.map((place) => ({ name: place.tags.name || "Diagnostic Lab", address: place.tags["addr:full"] || city, lat: place.lat, lon: place.lon })); res.json(results); } catch (error) { console.log(error); res.status(500).json({ error: "Failed to fetch labs" }); } } );
+// SEARCH HEALTHCARE LABS
+
+app.get(
+
+"/search-healthcare/:city",
+
+async (req, res) => {
+
+  try {
+
+    const city =
+    req.params.city;
+
+
+
+    // GET CITY COORDINATES
+
+    const geoResponse =
+    await fetch(
+
+`https://nominatim.openstreetmap.org/search?q=${city}&format=json&limit=1`
+
+    );
+
+
+
+    const geoData =
+    await geoResponse.json();
+
+
+
+    if (
+      geoData.length === 0
+    ) {
+
+      return res.json([]);
+    }
+
+
+
+    const lat =
+    geoData[0].lat;
+
+    const lon =
+    geoData[0].lon;
+
+
+
+    // OVERPASS QUERY
+
+    const query = ` [out:json][timeout:25]; ( node["amenity"="hospital"](around:50000,${lat},${lon}); node["healthcare"](around:50000,${lat},${lon}); node["amenity"="clinic"](around:50000,${lat},${lon}); ); out body; `;
+
+
+    const response =
+    await fetch(
+
+      "https://overpass-api.de/api/interpreter",
+
+      {
+
+        method: "POST",
+
+        body: query
+      }
+
+    );
+
+
+
+    const data =
+    await response.json();
+
+
+
+    const results =
+    data.elements.map((place)=>({
+
+      name:
+      place.tags.name ||
+      "Diagnostic Lab",
+
+      address:
+      city,
+
+      lat:
+      place.lat,
+
+      lon:
+      place.lon
+
+    }));
+
+
+
+    res.json(results);
+
+  }
+
+  catch (error) {
+
+    console.log(error);
+
+
+
+    res.status(500).json({
+
+      error:
+      "Failed to fetch labs"
+    });
+
+  }
+
+});
 
 // GET LABS BY TEST TYPE
 app.get("/tests/:test", (req, res) => {
