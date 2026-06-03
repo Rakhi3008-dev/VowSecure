@@ -8,7 +8,7 @@ import Doctor from "./models/Doctor.js";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 dotenv.config();
-
+console.log("MY NEW SERVER FILE LOADED");
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
@@ -27,19 +27,6 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("VowSecure Backend Running");
 });
-// GET ALL LABS
-
-/*app.get("/Labs", (req, res) => {
-  db.query("SELECT * FROM labs", (err, result) => {
-    if (err) {
-      console.log(err);
-      res.send(err);
-    } else {
-      res.send(result);
-    }
-  });
-});
-*/
 
 // SEARCH HEALTHCARE LABS
 app.get("/search-healthcare/:city", async (req, res) => {
@@ -60,24 +47,7 @@ app.get("/search-healthcare/:city", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-// GET LABS BY TEST TYPE
-/*app.get("/tests/:test", (req, res) => {
-  const test = req.params.test;
 
-  db.query(
-    "SELECT * FROM labs WHERE tests_available LIKE ?",
-    [`%${test}%`],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.send(err);
-      } else {
-        res.send(result);
-      }
-    }
-  );
-});
-*/
 //recommendations based on user input
 app.get("/recommend", (req, res) => {
   const family_history = req.query.family_history;
@@ -172,9 +142,7 @@ app.get("/nearby-labs", async (req, res) => {
 });
 
 app.get("/nearby-doctors", async (req, res) => {
-  console.log("MONGODB DOCTORS ROUTE");
   try {
-
     const userLat = parseFloat(req.query.lat);
     const userLon = parseFloat(req.query.lon);
 
@@ -193,27 +161,10 @@ app.get("/nearby-doctors", async (req, res) => {
       .slice(0, 10);
 
     res.json(nearbyDoctors);
-
   } catch (error) {
-    console.log(error);
-
-    res.status(500).json({
-      error: error.message
-    });
+    console.error(error);
+    res.status(500).json({ error: error.message });
   }
-});
-  
-
-app.get("/nearby-doctors", async (req, res) => {
-
-  console.log("MONGODB DOCTORS ROUTE");
-
-  const doctors = await Doctor.find({});
-
-  console.log(doctors);
-
-  res.json(doctors);
-
 });
 app.listen(8000, () => {
   console.log("Server running on port 8000");
