@@ -8,6 +8,4 @@ const labSchema = new mongoose.Schema({
   lon: Number
 });
 
-const Lab = mongoose.model("Lab", labSchema);
-
-export default Lab;
+export default mongoose.model("Lab", labSchema);
