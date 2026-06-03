@@ -1,10 +1,9 @@
-
+import express from "express";
+import bcrypt from "bcrypt";
+import cors from "cors";
+import path from "path";
 import mongoose from "mongoose";
 import Lab from "./models/Lab.js";
-const express = require("express");
-const bcrypt = require("bcrypt");
-const cors = require("cors");
-const path = require("path");
 
 const app = express();
 const fetch = (...args) =>
@@ -17,7 +16,7 @@ app.get("/", (req, res) => {
 });
 // GET ALL LABS
 
-app.get("/labs", (req, res) => {
+app.get("/Labs", (req, res) => {
   db.query("SELECT * FROM labs", (err, result) => {
     if (err) {
       console.log(err);
@@ -30,9 +29,6 @@ app.get("/labs", (req, res) => {
 
 
 // SEARCH HEALTHCARE LABS
-
-import Lab from "./models/Lab.js";
-
 app.get("/search-healthcare/:city", async (req, res) => {
   try {
     const city = req.params.city;
