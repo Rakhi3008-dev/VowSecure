@@ -5,6 +5,18 @@ import path from "path";
 import mongoose from "mongoose";
 import Lab from "./models/Lab.js";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.error(err));
+mongoose.connection.once("open", () => {
+  console.log(
+    "Connected DB:",
+    mongoose.connection.db.databaseName
+  );
+});
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -18,7 +30,7 @@ app.get("/", (req, res) => {
 });
 // GET ALL LABS
 
-app.get("/Labs", (req, res) => {
+/*app.get("/Labs", (req, res) => {
   db.query("SELECT * FROM labs", (err, result) => {
     if (err) {
       console.log(err);
@@ -28,29 +40,30 @@ app.get("/Labs", (req, res) => {
     }
   });
 });
-
+*/
 
 // SEARCH HEALTHCARE LABS
 app.get("/search-healthcare/:city", async (req, res) => {
   try {
     const city = req.params.city;
 
+    console.log("Searching city:", city);
+
     const labs = await Lab.find({
       city: { $regex: city, $options: "i" }
     });
+
+    console.log("Found labs:", labs);
 
     res.json(labs);
 
   } catch (error) {
     console.log(error);
-
-    res.status(500).json({
-      error: error.message
-    });
+    res.status(500).json({ error: error.message });
   }
 });
 // GET LABS BY TEST TYPE
-app.get("/tests/:test", (req, res) => {
+/*app.get("/tests/:test", (req, res) => {
   const test = req.params.test;
 
   db.query(
@@ -66,7 +79,7 @@ app.get("/tests/:test", (req, res) => {
     }
   );
 });
-
+*/
 //recommendations based on user input
 app.get("/recommend", (req, res) => {
   const family_history = req.query.family_history;
@@ -231,9 +244,6 @@ out;
   }
 });
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
 app.listen(8000, () => {
   console.log("Server running on port 8000");
 });
