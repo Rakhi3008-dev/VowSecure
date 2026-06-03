@@ -1,6 +1,6 @@
-import Lab from "./backend/Lab.js";
-import mongoose from "mongoose";
 
+import mongoose from "mongoose";
+import Lab from "./models/Lab.js";
 const express = require("express");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
