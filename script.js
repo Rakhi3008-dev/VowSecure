@@ -313,11 +313,17 @@ async function findNearbyLabs() {
 
       const userLon = position.coords.longitude;
 
+     
       const response = await fetch(
         `https://vowsecure.onrender.com/nearby-labs?lat=${userLat}&lon=${userLon}`
       );
-
+      
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+      
       const data = await response.json();
+      
 
       // REMOVE OLD MAP
 
@@ -892,7 +898,7 @@ async function findNearbyDoctors() {
       console.log(userLat, userLon);
 
       const response = await fetch(
-        `http://localhost:8000/nearby-doctors?lat=${userLat}&lon=${userLon}`
+        `https://vowsecure.onrender.com/nearby-doctors?lat=${userLat}&lon=${userLon}`
       );
 
       const data = await response.json();
