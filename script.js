@@ -1,193 +1,309 @@
-async function searchLabs(){
+
+async function searchLabs() {
 
   const city =
   document.getElementById(
-      "city"
+    "city"
   ).value;
 
 
 
-  if(city === ""){
+  if (city === "") {
 
-      alert(
-          "Enter city name"
-      );
+    alert(
+      "Enter city name"
+    );
 
-      return;
+    return;
   }
 
 
 
   const result =
   document.getElementById(
-      "result"
+    "result"
   );
 
 
 
   result.innerHTML =
-
   `<p>Searching labs...</p>`;
 
 
 
-  try{
+  try {
 
-      const response =
-      await fetch(
+    // FETCH LABS FROM BACKEND
 
-          `https://vowsecure.onrender.com/search-healthcare/${city}`
+    const response = await fetch(
+      `https://vowsecure.onrender.com/search-healthcare/${city}`
+    );
+    
+    const data = await response.json();
+    
+    console.log(data);
+    
+    if (!Array.isArray(data)) {
+      result.innerHTML = `
+        <p>Backend Error</p>
+        <pre>${JSON.stringify(data)}</pre>
+      `;
+      return;
+    }
+    // REMOVE OLD MAP
 
+    if (window.currentMap) { window.currentMap.off(); window.currentMap.remove(); document.getElementById( "map" ).innerHTML = ""; }
+
+    // CREATE MAP
+    document.getElementById( "map" ).innerHTML = "";
+    const map =
+    L.map("map").setView(
+
+      [data[0]?.lat || 20.5937,
+ data[0]?.lon || 78.9629],
+
+12
+    );
+
+
+
+    window.currentMap =
+    map;
+
+
+
+    // TILE LAYER
+
+    L.tileLayer(
+
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+      {
+
+        attribution:
+        "&copy; OpenStreetMap contributors",
+      }
+
+    ).addTo(map);
+
+
+
+    let output = "";
+
+    data.forEach((place) => {
+
+      output += `
+
+      <div class="health-card">
+
+        <div class="health-icon">
+
+          <i class="fa-solid fa-flask"></i>
+
+        </div>
+
+        <h2>
+
+          ${place.name}
+
+        </h2>
+
+        <p class="speciality">
+
+          Diagnostic Laboratory
+
+        </p>
+
+        <div class="health-info">
+
+          <p>
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            ${place.address}
+
+          </p>
+
+        </div>
+
+        <div class="lab-actions">
+
+          <a
+
+            class="test-btn"
+
+            target="_blank"
+
+            href="https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}">
+
+            <i class="fa-solid fa-location-arrow"></i>
+
+            Get Directions
+
+          </a>
+
+        </div>
+
+      </div>
+
+      `;
+
+
+
+      // MAP MARKER
+
+      L.marker([
+
+        place.lat,
+        place.lon
+
+      ])
+
+      .addTo(map)
+
+      .bindPopup(place.name);
+
+    });
+
+
+
+    if (output === "") {
+
+      output =
+      `<p>No labs found</p>`;
+    }
+
+
+
+    result.innerHTML =
+    output;
+
+  }
+
+  catch (error) {
+    console.error("LAB ERROR:", error);
+  
+    result.innerHTML = `
+      <p>Failed to load labs</p>
+      <p>${error.message}</p>
+    `;
+  }
+}
+// FIND NEARBY LABS
+
+async function findNearbyLabs() {
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const userLat = position.coords.latitude;
+
+      const userLon = position.coords.longitude;
+
+      const response = await fetch(
+        `https://vowsecure.onrender.com/nearby-labs?lat=${userLat}&lon=${userLon}`
       );
 
-
-
-      const data =
-      await response.json();
-
-
+      const data = await response.json();
 
       // REMOVE OLD MAP
 
-      if(window.currentMap){
-
-          window.currentMap.remove();
+      if (window.currentMap) {
+        window.currentMap.remove();
       }
 
+      // MAP
 
+      const map = L.map("map").setView([userLat, userLon], 13);
 
-      // CREATE MAP
-
-      const map =
-      L.map("map")
-      .setView(
-          [20.5937, 78.9629],
-          5
-      );
-
-
-
-      window.currentMap =
-      map;
-
-
+      window.currentMap = map;
 
       L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 
-          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-
-          {
-
-              attribution:
-              "&copy; OpenStreetMap contributors"
-          }
-
+        {
+          attribution: "&copy; OpenStreetMap contributors",
+        }
       ).addTo(map);
 
+      // USER LOCATION
 
+      L.marker([userLat, userLon])
+
+        .addTo(map)
+
+        .bindPopup("You are here");
 
       let output = "";
 
+      data.forEach((lab) => {
+        output += `
 
+<div class="health-card">
 
-      data.forEach((place)=>{
+    <div class="health-icon">
 
-          output += `
+        <i class="fa-solid fa-flask"></i>
 
-          <div class="health-card">
+    </div>
 
-              <div class="health-icon">
+    <h2>${lab.name}</h2>
 
-                  <i class="fa-solid fa-flask"></i>
+    <p class="speciality">
 
-              </div>
+        Diagnostic Laboratory
 
-              <h2>
+    </p>
 
-                  ${place.name}
+    <div class="health-info">
 
-              </h2>
+        <p>
 
-              <p class="speciality">
+            <i class="fa-solid fa-location-dot"></i>
 
-                  Diagnostic Laboratory
+            ${lab.address}
 
-              </p>
+        </p>
 
-              <div class="health-info">
+    </div>
 
-                  <p>
+    <div class="lab-actions">
 
-                      <i class="fa-solid fa-location-dot"></i>
+        <a
+        class="test-btn"
 
-                      ${place.address}
+        target="_blank"
 
-                  </p>
+        href="https://www.google.com/maps/dir/?api=1&destination=${lab.lat},${lab.lon}">
 
-              </div>
+            <i class="fa-solid fa-location-arrow"></i>
 
-              <div class="lab-actions">
+            Get Directions
 
-                  <a
+        </a>
 
-                  class="test-btn"
+    </div>
 
-                  target="_blank"
+</div>
 
-                  href="https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}">
+`;
 
-                      <i class="fa-solid fa-location-arrow"></i>
+        // LAB MARKER
 
-                      Get Directions
-
-                  </a>
-
-              </div>
-
-          </div>
-
-          `;
-
-
-
-          L.marker([
-
-              place.lat,
-              place.lon
-
-          ])
+        L.marker([lab.lat, lab.lon])
 
           .addTo(map)
 
-          .bindPopup(place.name);
+          .bindPopup(lab.name);
       });
 
+      document.getElementById("result").innerHTML = output;
+    },
 
-
-      if(output === ""){
-
-          output =
-
-          `<p>No labs found</p>`;
-      }
-
-
-
-      result.innerHTML =
-      output;
-  }
-
-  catch(error){
-
-      console.log(error);
-
-
-
-      result.innerHTML =
-
-      `<p>Failed to load labs</p>`;
-  }
+    (error) => {
+      alert("Location permission denied");
+    }
+  );
 }
+   
 // FIND NEARBY LABS
 
 async function findNearbyLabs() {
@@ -764,8 +880,8 @@ async function getRecommendations() {
   document.getElementById("result").innerHTML = output;
 }
 
-  //nearby       
- 
+//nearby
+
 async function findNearbyDoctors() {
   navigator.geolocation.getCurrentPosition(
     async (position) => {
@@ -852,9 +968,6 @@ async function findNearbyDoctors() {
   );
 }
 
-
-
-
 // TOGGLE CHATBOT
 
 function toggleChatbot() {
@@ -867,34 +980,22 @@ function toggleChatbot() {
   }
 }
 
-// SEND MESSAGE
+
 
 // SEND MESSAGE
 
 async function sendMessage() {
+  const input = document.getElementById("chatInput");
 
-    const input =
-        document.getElementById(
-            "chatInput"
-        );
+  const message = input.value.toLowerCase();
 
-    const message =
-        input.value.toLowerCase();
+  if (message === "") return;
 
-    if(message === "") return;
+  const chatMessages = document.getElementById("chatMessages");
 
+  // USER MESSAGE
 
-
-    const chatMessages =
-        document.getElementById(
-            "chatMessages"
-        );
-
-
-
-    // USER MESSAGE
-
-    chatMessages.innerHTML += `
+  chatMessages.innerHTML += `
 
     <div class="user-message">
 
@@ -904,17 +1005,13 @@ async function sendMessage() {
 
     `;
 
+  // CLEAR INPUT
 
+  input.value = "";
 
-    // CLEAR INPUT
+  // TYPING MESSAGE
 
-    input.value = "";
-
-
-
-    // TYPING MESSAGE
-
-    chatMessages.innerHTML += `
+  chatMessages.innerHTML += `
 
     <div
     class="bot-message"
@@ -926,28 +1023,17 @@ async function sendMessage() {
 
     `;
 
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 
+  // SMART HEALTHCARE AI
 
-    chatMessages.scrollTop =
-        chatMessages.scrollHeight;
-
-
-
-    // SMART HEALTHCARE AI
-
-    let botReply =
-
+  let botReply =
     "Please consult a healthcare professional for accurate medical guidance.";
 
+  // THALASSEMIA
 
-
-    // THALASSEMIA
-
-    if(message.includes("thalassemia")){
-
-        botReply =
-
-        `Thalassemia is a genetic blood disorder affecting hemoglobin production.
+  if (message.includes("thalassemia")) {
+    botReply = `Thalassemia is a genetic blood disorder affecting hemoglobin production.
 
 If both partners are carriers, children may inherit severe thalassemia major.
 
@@ -955,62 +1041,38 @@ Recommended Tests:
 • HPLC
 • CBC
 • Carrier Screening`;
-    }
+  }
 
-
-
-    // HIV
-
-    else if(message.includes("hiv")){
-
-        botReply =
-
-        `HIV weakens the immune system and spreads through blood and sexual contact.
+  // HIV
+  else if (message.includes("hiv")) {
+    botReply = `HIV weakens the immune system and spreads through blood and sexual contact.
 
 Premarital HIV testing helps couples take preventive healthcare decisions early.`;
-    }
+  }
 
-
-
-    // CBC
-
-    else if(message.includes("cbc")){
-
-        botReply =
-
-        `CBC (Complete Blood Count) helps detect:
+  // CBC
+  else if (message.includes("cbc")) {
+    botReply = `CBC (Complete Blood Count) helps detect:
 
 • anemia
 • infections
 • blood abnormalities
 • overall blood health`;
-    }
+  }
 
-
-
-    // CARRIER SCREENING
-
-    else if(message.includes("carrier")){
-
-        botReply =
-
-        `Carrier screening identifies inherited genetic disease risks before planning children.
+  // CARRIER SCREENING
+  else if (message.includes("carrier")) {
+    botReply = `Carrier screening identifies inherited genetic disease risks before planning children.
 
 It helps detect:
 • thalassemia
 • sickle cell disease
 • inherited disorders`;
-    }
+  }
 
-
-
-    // PREMARITAL TESTS
-
-    else if(message.includes("premarital")){
-
-        botReply =
-
-        `Common premarital tests include:
+  // PREMARITAL TESTS
+  else if (message.includes("premarital")) {
+    botReply = `Common premarital tests include:
 
 • HIV
 • Hepatitis B
@@ -1018,66 +1080,35 @@ It helps detect:
 • HPLC
 • Blood Group & Rh Typing
 • VDRL`;
-    }
+  }
 
+  // LABS
+  else if (message.includes("lab")) {
+    botReply = `Use the Nearby Labs feature in VowSecure to find diagnostic laboratories near your location.`;
+  }
 
+  // DOCTORS
+  else if (message.includes("doctor")) {
+    botReply = `Use Nearby Doctors in VowSecure to locate healthcare specialists and clinics around you.`;
+  }
 
-    // LABS
-
-    else if(message.includes("lab")){
-
-        botReply =
-
-        `Use the Nearby Labs feature in VowSecure to find diagnostic laboratories near your location.`;
-    }
-
-
-
-    // DOCTORS
-
-    else if(message.includes("doctor")){
-
-        botReply =
-
-        `Use Nearby Doctors in VowSecure to locate healthcare specialists and clinics around you.`;
-    }
-
-
-
-    // HEPATITIS
-
-    else if(message.includes("hepatitis")){
-
-        botReply =
-
-        `Hepatitis B affects the liver and may become chronic.
+  // HEPATITIS
+  else if (message.includes("hepatitis")) {
+    botReply = `Hepatitis B affects the liver and may become chronic.
 
 Premarital screening helps reduce transmission risks and future complications.`;
+  }
+
+  // REMOVE TYPING + SHOW REPLY
+
+  setTimeout(() => {
+    const typingMessage = document.getElementById("typingMessage");
+
+    if (typingMessage) {
+      typingMessage.remove();
     }
 
-
-
-    // REMOVE TYPING + SHOW REPLY
-
-    setTimeout(() => {
-
-        const typingMessage =
-
-            document.getElementById(
-                "typingMessage"
-            );
-
-
-
-        if(typingMessage){
-
-            typingMessage.remove();
-
-        }
-
-
-
-        chatMessages.innerHTML += `
+    chatMessages.innerHTML += `
 
         <div class="bot-message">
 
@@ -1087,15 +1118,9 @@ Premarital screening helps reduce transmission risks and future complications.`;
 
         `;
 
-
-
-        chatMessages.scrollTop =
-            chatMessages.scrollHeight;
-
-    }, 800);
-
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }, 800);
 }
-
 
 function toggleMenu() {
   const navLinks = document.getElementById("navLinks");
