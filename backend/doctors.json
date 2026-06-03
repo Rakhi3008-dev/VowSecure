@@ -1,0 +1,702 @@
+[
+  {
+    "name": "Apollo Hospital",
+    "city": "Delhi",
+    "address": "Central Delhi",
+    "lat": 28.6139,
+    "lon": 77.209
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Delhi",
+    "address": "North Delhi",
+    "lat": 28.6209,
+    "lon": 77.216
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Delhi",
+    "address": "South Delhi",
+    "lat": 28.6279,
+    "lon": 77.223
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Delhi",
+    "address": "East Delhi",
+    "lat": 28.6349,
+    "lon": 77.23
+  },
+  {
+    "name": "Medanta",
+    "city": "Delhi",
+    "address": "West Delhi",
+    "lat": 28.6419,
+    "lon": 77.237
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Delhi",
+    "address": "Central Delhi",
+    "lat": 28.6489,
+    "lon": 77.244
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Delhi",
+    "address": "North Delhi",
+    "lat": 28.6559,
+    "lon": 77.251
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Delhi",
+    "address": "South Delhi",
+    "lat": 28.6629,
+    "lon": 77.258
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Delhi",
+    "address": "East Delhi",
+    "lat": 28.6699,
+    "lon": 77.265
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Delhi",
+    "address": "West Delhi",
+    "lat": 28.6769,
+    "lon": 77.272
+  },
+  {
+    "name": "Apollo Hospital",
+    "city": "Mumbai",
+    "address": "Central Mumbai",
+    "lat": 19.076,
+    "lon": 72.8777
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Mumbai",
+    "address": "North Mumbai",
+    "lat": 19.083,
+    "lon": 72.8847
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Mumbai",
+    "address": "South Mumbai",
+    "lat": 19.09,
+    "lon": 72.8917
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Mumbai",
+    "address": "East Mumbai",
+    "lat": 19.097,
+    "lon": 72.8987
+  },
+  {
+    "name": "Medanta",
+    "city": "Mumbai",
+    "address": "West Mumbai",
+    "lat": 19.104,
+    "lon": 72.9057
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Mumbai",
+    "address": "Central Mumbai",
+    "lat": 19.111,
+    "lon": 72.9127
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Mumbai",
+    "address": "North Mumbai",
+    "lat": 19.118,
+    "lon": 72.9197
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Mumbai",
+    "address": "South Mumbai",
+    "lat": 19.125,
+    "lon": 72.9267
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Mumbai",
+    "address": "East Mumbai",
+    "lat": 19.132,
+    "lon": 72.9337
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Mumbai",
+    "address": "West Mumbai",
+    "lat": 19.139,
+    "lon": 72.9407
+  },
+  {
+    "name": "Apollo Hospital",
+    "city": "Bangalore",
+    "address": "Central Bangalore",
+    "lat": 12.9716,
+    "lon": 77.5946
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Bangalore",
+    "address": "North Bangalore",
+    "lat": 12.9786,
+    "lon": 77.6016
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Bangalore",
+    "address": "South Bangalore",
+    "lat": 12.9856,
+    "lon": 77.6086
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Bangalore",
+    "address": "East Bangalore",
+    "lat": 12.9926,
+    "lon": 77.6156
+  },
+  {
+    "name": "Medanta",
+    "city": "Bangalore",
+    "address": "West Bangalore",
+    "lat": 12.9996,
+    "lon": 77.6226
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Bangalore",
+    "address": "Central Bangalore",
+    "lat": 13.0066,
+    "lon": 77.6296
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Bangalore",
+    "address": "North Bangalore",
+    "lat": 13.0136,
+    "lon": 77.6366
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Bangalore",
+    "address": "South Bangalore",
+    "lat": 13.0206,
+    "lon": 77.6436
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Bangalore",
+    "address": "East Bangalore",
+    "lat": 13.0276,
+    "lon": 77.6506
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Bangalore",
+    "address": "West Bangalore",
+    "lat": 13.0346,
+    "lon": 77.6576
+  },
+  {
+    "name": "Apollo Hospital",
+    "city": "Hyderabad",
+    "address": "Central Hyderabad",
+    "lat": 17.385,
+    "lon": 78.4867
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Hyderabad",
+    "address": "North Hyderabad",
+    "lat": 17.392,
+    "lon": 78.4937
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Hyderabad",
+    "address": "South Hyderabad",
+    "lat": 17.399,
+    "lon": 78.5007
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Hyderabad",
+    "address": "East Hyderabad",
+    "lat": 17.406,
+    "lon": 78.5077
+  },
+  {
+    "name": "Medanta",
+    "city": "Hyderabad",
+    "address": "West Hyderabad",
+    "lat": 17.413,
+    "lon": 78.5147
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Hyderabad",
+    "address": "Central Hyderabad",
+    "lat": 17.42,
+    "lon": 78.5217
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Hyderabad",
+    "address": "North Hyderabad",
+    "lat": 17.427,
+    "lon": 78.5287
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Hyderabad",
+    "address": "South Hyderabad",
+    "lat": 17.434,
+    "lon": 78.5357
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Hyderabad",
+    "address": "East Hyderabad",
+    "lat": 17.441,
+    "lon": 78.5427
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Hyderabad",
+    "address": "West Hyderabad",
+    "lat": 17.448,
+    "lon": 78.5497
+  },
+  {
+    "name": "Apollo Hospital",
+    "city": "Kolkata",
+    "address": "Central Kolkata",
+    "lat": 22.5726,
+    "lon": 88.3639
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Kolkata",
+    "address": "North Kolkata",
+    "lat": 22.5796,
+    "lon": 88.3709
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Kolkata",
+    "address": "South Kolkata",
+    "lat": 22.5866,
+    "lon": 88.3779
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Kolkata",
+    "address": "East Kolkata",
+    "lat": 22.5936,
+    "lon": 88.3849
+  },
+  {
+    "name": "Medanta",
+    "city": "Kolkata",
+    "address": "West Kolkata",
+    "lat": 22.6006,
+    "lon": 88.3919
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Kolkata",
+    "address": "Central Kolkata",
+    "lat": 22.6076,
+    "lon": 88.3989
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Kolkata",
+    "address": "North Kolkata",
+    "lat": 22.6146,
+    "lon": 88.4059
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Kolkata",
+    "address": "South Kolkata",
+    "lat": 22.6216,
+    "lon": 88.4129
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Kolkata",
+    "address": "East Kolkata",
+    "lat": 22.6286,
+    "lon": 88.4199
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Kolkata",
+    "address": "West Kolkata",
+    "lat": 22.6356,
+    "lon": 88.4269
+  },
+  {
+    "name": "Apollo Hospital",
+    "city": "Pune",
+    "address": "Central Pune",
+    "lat": 18.5204,
+    "lon": 73.8567
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Pune",
+    "address": "North Pune",
+    "lat": 18.5274,
+    "lon": 73.8637
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Pune",
+    "address": "South Pune",
+    "lat": 18.5344,
+    "lon": 73.8707
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Pune",
+    "address": "East Pune",
+    "lat": 18.5414,
+    "lon": 73.8777
+  },
+  {
+    "name": "Medanta",
+    "city": "Pune",
+    "address": "West Pune",
+    "lat": 18.5484,
+    "lon": 73.8847
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Pune",
+    "address": "Central Pune",
+    "lat": 18.5554,
+    "lon": 73.8917
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Pune",
+    "address": "North Pune",
+    "lat": 18.5624,
+    "lon": 73.8987
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Pune",
+    "address": "South Pune",
+    "lat": 18.5694,
+    "lon": 73.9057
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Pune",
+    "address": "East Pune",
+    "lat": 18.5764,
+    "lon": 73.9127
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Pune",
+    "address": "West Pune",
+    "lat": 18.5834,
+    "lon": 73.9197
+  },
+  {
+    "name": "Apollo Hospital",
+    "city": "Chennai",
+    "address": "Central Chennai",
+    "lat": 13.0827,
+    "lon": 80.2707
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Chennai",
+    "address": "North Chennai",
+    "lat": 13.0897,
+    "lon": 80.2777
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Chennai",
+    "address": "South Chennai",
+    "lat": 13.0967,
+    "lon": 80.2847
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Chennai",
+    "address": "East Chennai",
+    "lat": 13.1037,
+    "lon": 80.2917
+  },
+  {
+    "name": "Medanta",
+    "city": "Chennai",
+    "address": "West Chennai",
+    "lat": 13.1107,
+    "lon": 80.2987
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Chennai",
+    "address": "Central Chennai",
+    "lat": 13.1177,
+    "lon": 80.3057
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Chennai",
+    "address": "North Chennai",
+    "lat": 13.1247,
+    "lon": 80.3127
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Chennai",
+    "address": "South Chennai",
+    "lat": 13.1317,
+    "lon": 80.3197
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Chennai",
+    "address": "East Chennai",
+    "lat": 13.1387,
+    "lon": 80.3267
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Chennai",
+    "address": "West Chennai",
+    "lat": 13.1457,
+    "lon": 80.3337
+  },
+  {
+    "name": "Apollo Hospital",
+    "city": "Ahmedabad",
+    "address": "Central Ahmedabad",
+    "lat": 23.0225,
+    "lon": 72.5714
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Ahmedabad",
+    "address": "North Ahmedabad",
+    "lat": 23.0295,
+    "lon": 72.5784
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Ahmedabad",
+    "address": "South Ahmedabad",
+    "lat": 23.0365,
+    "lon": 72.5854
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Ahmedabad",
+    "address": "East Ahmedabad",
+    "lat": 23.0435,
+    "lon": 72.5924
+  },
+  {
+    "name": "Medanta",
+    "city": "Ahmedabad",
+    "address": "West Ahmedabad",
+    "lat": 23.0505,
+    "lon": 72.5994
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Ahmedabad",
+    "address": "Central Ahmedabad",
+    "lat": 23.0575,
+    "lon": 72.6064
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Ahmedabad",
+    "address": "North Ahmedabad",
+    "lat": 23.0645,
+    "lon": 72.6134
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Ahmedabad",
+    "address": "South Ahmedabad",
+    "lat": 23.0715,
+    "lon": 72.6204
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Ahmedabad",
+    "address": "East Ahmedabad",
+    "lat": 23.0785,
+    "lon": 72.6274
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Ahmedabad",
+    "address": "West Ahmedabad",
+    "lat": 23.0855,
+    "lon": 72.6344
+  },
+  {
+    "name": "Apollo Hospital",
+    "city": "Jaipur",
+    "address": "Central Jaipur",
+    "lat": 26.9124,
+    "lon": 75.7873
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Jaipur",
+    "address": "North Jaipur",
+    "lat": 26.9194,
+    "lon": 75.7943
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Jaipur",
+    "address": "South Jaipur",
+    "lat": 26.9264,
+    "lon": 75.8013
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Jaipur",
+    "address": "East Jaipur",
+    "lat": 26.9334,
+    "lon": 75.8083
+  },
+  {
+    "name": "Medanta",
+    "city": "Jaipur",
+    "address": "West Jaipur",
+    "lat": 26.9404,
+    "lon": 75.8153
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Jaipur",
+    "address": "Central Jaipur",
+    "lat": 26.9474,
+    "lon": 75.8223
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Jaipur",
+    "address": "North Jaipur",
+    "lat": 26.9544,
+    "lon": 75.8293
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Jaipur",
+    "address": "South Jaipur",
+    "lat": 26.9614,
+    "lon": 75.8363
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Jaipur",
+    "address": "East Jaipur",
+    "lat": 26.9684,
+    "lon": 75.8433
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Jaipur",
+    "address": "West Jaipur",
+    "lat": 26.9754,
+    "lon": 75.8503
+  },
+  {
+    "name": "Apollo Hospital",
+    "city": "Lucknow",
+    "address": "Central Lucknow",
+    "lat": 26.8467,
+    "lon": 80.9462
+  },
+  {
+    "name": "Fortis Hospital",
+    "city": "Lucknow",
+    "address": "North Lucknow",
+    "lat": 26.8537,
+    "lon": 80.9532
+  },
+  {
+    "name": "Max Healthcare",
+    "city": "Lucknow",
+    "address": "South Lucknow",
+    "lat": 26.8607,
+    "lon": 80.9602
+  },
+  {
+    "name": "Manipal Hospital",
+    "city": "Lucknow",
+    "address": "East Lucknow",
+    "lat": 26.8677,
+    "lon": 80.9672
+  },
+  {
+    "name": "Medanta",
+    "city": "Lucknow",
+    "address": "West Lucknow",
+    "lat": 26.8747,
+    "lon": 80.9742
+  },
+  {
+    "name": "Narayana Health",
+    "city": "Lucknow",
+    "address": "Central Lucknow",
+    "lat": 26.8817,
+    "lon": 80.9812
+  },
+  {
+    "name": "Aster Hospital",
+    "city": "Lucknow",
+    "address": "North Lucknow",
+    "lat": 26.8887,
+    "lon": 80.9882
+  },
+  {
+    "name": "Care Hospital",
+    "city": "Lucknow",
+    "address": "South Lucknow",
+    "lat": 26.8957,
+    "lon": 80.9952
+  },
+  {
+    "name": "City Care Clinic",
+    "city": "Lucknow",
+    "address": "East Lucknow",
+    "lat": 26.9027,
+    "lon": 81.0022
+  },
+  {
+    "name": "LifeCare Medical Centre",
+    "city": "Lucknow",
+    "address": "West Lucknow",
+    "lat": 26.9097,
+    "lon": 81.0092
+  }
+]

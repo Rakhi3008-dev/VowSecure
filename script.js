@@ -892,7 +892,7 @@ async function findNearbyDoctors() {
       console.log(userLat, userLon);
 
       const response = await fetch(
-        `https://vowsecure.onrender.com/nearby-doctors?lat=${userLat}&lon=${userLon}`
+        `http://localhost:8000/nearby-doctors?lat=${userLat}&lon=${userLon}`
       );
 
       const data = await response.json();
@@ -956,8 +956,9 @@ async function findNearbyDoctors() {
                         `
           );
       });
-
+      console.log(output);
       document.getElementById("result").innerHTML = output;
+
     },
 
     (error) => {

@@ -4,18 +4,17 @@ import cors from "cors";
 import path from "path";
 import mongoose from "mongoose";
 import Lab from "./models/Lab.js";
+import Doctor from "./models/Doctor.js";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));
 mongoose.connection.once("open", () => {
-  console.log(
-    "Connected DB:",
-    mongoose.connection.db.databaseName
-  );
+  console.log("Connected DB:", mongoose.connection.db.databaseName);
 });
 
 const app = express();
@@ -50,13 +49,12 @@ app.get("/search-healthcare/:city", async (req, res) => {
     console.log("Searching city:", city);
 
     const labs = await Lab.find({
-      city: { $regex: city, $options: "i" }
+      city: { $regex: city, $options: "i" },
     });
 
     console.log("Found labs:", labs);
 
     res.json(labs);
-
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
@@ -147,103 +145,76 @@ app.get("/recommend", (req, res) => {
 });
 
 app.get("/nearby-labs", async (req, res) => {
-  const lat = req.query.lat;
-  const lon = req.query.lon;
-
   try {
-    const fetch = (await import("node-fetch")).default;
+    const userLat = parseFloat(req.query.lat);
+    const userLon = parseFloat(req.query.lon);
 
-    const query = `
-[out:json];
-node["healthcare"="laboratory"](around:5000,${lat},${lon});
-out;
-`;
+    const labs = await Lab.find({});
 
-    const response = await fetch(
-      "https://overpass-api.de/api/interpreter",
+    const nearbyLabs = labs
+      .map((lab) => ({
+        ...lab.toObject(),
+        distance: Math.sqrt(
+          Math.pow(userLat - lab.lat, 2) + Math.pow(userLon - lab.lon, 2)
+        ),
+      }))
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, 10);
 
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-
-        body: query,
-      }
-    );
-
-    const text = await response.text();
-
-    console.log(text);
-
-    const data = JSON.parse(text);
-
-    const labs = data.elements.map((place) => ({
-      name: place.tags.name || "Diagnostic Lab",
-
-      lat: place.lat,
-
-      lon: place.lon,
-
-      address: place.tags["addr:full"] || "Nearby Lab",
-    }));
-
-    res.json(labs);
+    res.json(nearbyLabs);
   } catch (error) {
     console.log(error);
 
-    res.send("Error fetching nearby labs");
+    res.status(500).json({
+      error: error.message,
+    });
   }
 });
 
 app.get("/nearby-doctors", async (req, res) => {
-  const lat = req.query.lat;
-  const lon = req.query.lon;
-
+  console.log("MONGODB DOCTORS ROUTE");
   try {
-    const fetch = (await import("node-fetch")).default;
 
-    const query = `
-[out:json];
-node["amenity"="hospital"](around:5000,${lat},${lon});
-out;
-`;
+    const userLat = parseFloat(req.query.lat);
+    const userLon = parseFloat(req.query.lon);
 
-    const response = await fetch(
-      "https://overpass-api.de/api/interpreter",
+    const doctors = await Doctor.find({});
 
-      {
-        method: "POST",
+    const nearbyDoctors = doctors
+      .map((doctor) => ({
+        ...doctor.toObject(),
+        distance:
+          Math.sqrt(
+            Math.pow(userLat - doctor.lat, 2) +
+            Math.pow(userLon - doctor.lon, 2)
+          )
+      }))
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, 10);
 
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+    res.json(nearbyDoctors);
 
-        body: query,
-      }
-    );
-
-    const data = await response.json();
-
-    const doctors = data.elements.map((place) => ({
-      name: place.tags.name || "Healthcare Center",
-
-      lat: place.lat,
-
-      lon: place.lon,
-
-      address: place.tags["addr:full"] || "Nearby Healthcare Center",
-    }));
-
-    res.json(doctors);
   } catch (error) {
     console.log(error);
 
-    res.send("Error fetching doctors");
+    res.status(500).json({
+      error: error.message
+    });
   }
 });
+  
 
+app.get("/nearby-doctors", async (req, res) => {
+
+  console.log("MONGODB DOCTORS ROUTE");
+
+  const doctors = await Doctor.find({});
+
+  console.log(doctors);
+
+  res.json(doctors);
+
+});
 app.listen(8000, () => {
   console.log("Server running on port 8000");
 });
