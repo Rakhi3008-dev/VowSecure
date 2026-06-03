@@ -4,13 +4,15 @@ import cors from "cors";
 import path from "path";
 import mongoose from "mongoose";
 import Lab from "./models/Lab.js";
+import { fileURLToPath } from "url";
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, "../frontend")));
 app.get("/", (req, res) => {
   res.send("VowSecure Backend Running");
 });
